@@ -1,6 +1,7 @@
-package books
+package model3ds
 
 import (
+    "github.com/gofiber/fiber/v2"
     "gorm.io/gorm"
 )
 

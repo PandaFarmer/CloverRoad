@@ -104,7 +104,7 @@ curl --request PUT \
 curl --request GET --url http://localhost:3000/model3ds/1
 
 List of todos:
-api versioning
+api versioning?
 logging w/ flags? - https://docs.gofiber.io/api/middleware/logger
 async
 iam w/ jwts
@@ -113,3 +113,10 @@ react/threejs frontend
 deploy on aws
 
 rewrite in asp or actix haha
+
+https://medium.com/@jcox250/password-hash-salt-using-golang-b041dc94cb72
+https://github.com/gofiber/jwt
+
+https://www.jajaldoang.com/post/how-to-update-golang/
+
+curl --data "user=john&pass=doe" http://localhost:3000/login

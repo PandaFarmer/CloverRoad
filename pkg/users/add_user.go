@@ -3,6 +3,7 @@ package users
 import (
     "time"
     "github.com/gofiber/fiber/v2"
+    "github.com/PandaFarmer/CloverRoad/pkg/core"
     "github.com/PandaFarmer/CloverRoad/pkg/common/models"
 )
 
@@ -32,7 +33,7 @@ func (h handler) AddUser(c *fiber.Ctx) error {
     user.UserName = body.UserName
     user.FirstName = body.FirstName
     user.LastName = body.LastName
-    user.Password = body.Password
+    user.Password = core.HashAndSalt([]byte(body.Password))
     user.DateJoined = time.Now()
     user.IsSuperUser = body.IsSuperUser
 

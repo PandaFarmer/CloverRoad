@@ -3,7 +3,7 @@ package users
 import (
     "time"
     "github.com/gofiber/fiber/v2"
-    "github.com/PandaFarmer/CloverRoad/pkg/common/users"
+    "github.com/PandaFarmer/CloverRoad/pkg/common/models"
 )
 
 type AddUserRequestBody struct {

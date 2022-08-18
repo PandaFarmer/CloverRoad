@@ -2,7 +2,7 @@ package users
 
 import (
     "github.com/gofiber/fiber/v2"
-    "github.com/PandaFarmer/CloverRoad/pkg/common/users"
+    "github.com/PandaFarmer/CloverRoad/pkg/common/models"
 )
 
 func (h handler) GetUser(c *fiber.Ctx) error {

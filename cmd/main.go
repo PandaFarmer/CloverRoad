@@ -6,7 +6,7 @@ import (
 
     "github.com/gofiber/fiber/v2"
     "github.com/PandaFarmer/CloverRoad/pkg/model3ds"
-    //"github.com/PandaFarmer/CloverRoad/pkg/users"
+    "github.com/PandaFarmer/CloverRoad/pkg/users"
     "github.com/PandaFarmer/CloverRoad/pkg/common/config"
     "github.com/PandaFarmer/CloverRoad/pkg/common/db"
 )
@@ -25,8 +25,8 @@ func main() {
     //    return ctx.Status(fiber.StatusOK).SendString(c.Port)
     //})
 
-    books.RegisterRoutes(app, db)
-    //users.RegisterRoutes(app, db)
+    model3ds.RegisterRoutes(app, db)
+    users.RegisterRoutes(app, db)
 
     app.Listen(c.Port)
 }

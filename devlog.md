@@ -58,3 +58,6 @@ CREATE TABLE Users (
 https://gorm.io/docs/connecting_to_the_database.html
 ALTER USER user_name WITH PASSWORD 'new_password';
 
+ git add . &&
+ git commit -a &&
+ git push -u origin master

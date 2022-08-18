@@ -55,9 +55,61 @@ CREATE TABLE Users (
 );
 
 8/18/2022
+https://www.databasestar.com/sql-show-databases/
+https://stackoverflow.com/questions/7695962/password-authentication-failed-for-user-postgres
+https://nixcp.com/postgresql-restart-command/
+
 https://gorm.io/docs/connecting_to_the_database.html
 ALTER USER user_name WITH PASSWORD 'new_password';
 
  git add . &&
  git commit -a &&
  git push -u origin master
+
+ curl --request POST \
+  --url http://localhost:3000/users \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Email": "iqiao2011@gmail.com",
+    "UserName": "PandaFarmer",
+    "FirstName": "Isaac",
+    "LastName": "Qiao",
+    "Password": "fakepassword",
+    "DateJoined": "2012-04-23T18:25:43.511Z",
+    "IsSuperUser": "True"
+  }'
+
+  curl --request GET --url http://localhost:3000/users/1
+
+curl --request POST \
+  --url http://localhost:3000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99
+  }'
+
+curl --request PUT \
+  --url http://localhost:3000/model3ds/1 \
+  --header 'Content-Type: application/json' \
+  --data '{
+ "Title":"StormTrooper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"Ligma",
+    "Price":-6.99
+}'
+
+curl --request GET --url http://localhost:3000/model3ds/1
+
+List of todos:
+api versioning
+logging w/ flags? - https://docs.gofiber.io/api/middleware/logger
+async
+iam w/ jwts
+add blob/[]byte to Model3D struct
+react/threejs frontend
+deploy on aws
+
+rewrite in asp or actix haha

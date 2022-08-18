@@ -25,7 +25,7 @@ func (h handler) AddUser(c *fiber.Ctx) error {
         return fiber.NewError(fiber.StatusBadRequest, err.Error())
     }
 
-    var users models.User
+    var user models.User
 
     user.Id = body.Id
     user.Email = body.Email

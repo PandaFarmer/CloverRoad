@@ -49,7 +49,7 @@ CREATE TABLE Model3Ds (
 
 CREATE TABLE Users (
     PersonID int,
-    LastName varchar(255),
+    Surname varchar(255),
     FirstName varchar(255),
     City varchar(255)
 );
@@ -70,16 +70,30 @@ ALTER USER user_name WITH PASSWORD 'new_password';
   --url http://localhost:3000/users \
   --header 'Content-Type: application/json' \
   --data '{
-    "Email": "iqiao2011@gmail.com",
-    "UserName": "PandaFarmer",
-    "FirstName": "Isaac",
-    "LastName": "Qiao",
-    "Password": "fakepassword",
-    "DateJoined": "2012-04-23T18:25:43.511Z",
-    "IsSuperUser": "True"
+    "email": "iqiao2011@gmail.com",
+    "user_name": "PandaFarmer",
+    "first_name": "Isaac",
+    "surname": "Qiao",
+    "password": "fakepassword",
+    "date_joined": "2012-04-23T18:25:43.511Z",
+    "is_super_user": true
+  }'
+
+   curl --request PUT \
+  --url http://localhost:3000/users/1 \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "email": "iqiao2011@gmail.com",
+    "user_name": "PandaFarmer",
+    "first_name": "Isaac",
+    "surname": "Qiao",
+    "password": "fakepassword",
+    "date_joined": "2012-04-23T18:25:43.511Z",
+    "is_super_user": true
   }'
 
   curl --request GET --url http://localhost:3000/users/1
+
 
 curl --request POST \
   --url http://localhost:3000/model3ds \
@@ -101,6 +115,10 @@ curl --request PUT \
     "Price":-6.99
 }'
 
+curl --request DELETE \
+  --url http://localhost:3000/users/2
+
+
 curl --request GET --url http://localhost:3000/model3ds/1
 
 List of todos:
@@ -112,11 +130,105 @@ add blob/[]byte to Model3D struct
 react/threejs frontend
 deploy on aws
 
-rewrite in asp or actix haha
+rewrite in asp or actix haha, asp more likely
 
 https://medium.com/@jcox250/password-hash-salt-using-golang-b041dc94cb72
 https://github.com/gofiber/jwt
 
 https://www.jajaldoang.com/post/how-to-update-golang/
 
-curl --data "user=john&pass=doe" http://localhost:3000/login
+
+curl --data "email=iqiao2011@gmail.com&pass=fakepassword" http://localhost:8000/auth/login
+
+curl localhost:3000/restricted -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxMTIyNDI1LCJuYW1lIjoiSm9obiBEb2UifQ.E3z-ecQYJ0UZCyy0uT8rS6XH7SE6M_XgkLhiQ9UsK1g"
+
+curl localhost:3000/restricted -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxNDQwOTUyLCJuYW1lIjoiSm9obiBEb2UifQ.sU0bcnmX7Kv-1TVrhX627TRDkIC5JCnH2HSBX0kwe2Q"
+
+curl localhost:3000/restricted -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxNDUwNTczLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.3V2aYPIsgsXaZpKniLGyD41uwCU6liMcEEWxd0Z9rNM"
+
+  curl --request GET --url http://localhost:8000/users/1 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxNjMwNDUzLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.qg2b_x2gZRQ8fPQeo-qmMp_gukfFtBs5CJdm9DvIGic"
+
+8/22/2022
+jwt issues..
+no username in token?
+ok issue with User schema..response needs to have a UserName and FirstName, not user_name and first_name..
+
+psql -U postgres -h localhost -W
+db pass: 3t4t5LQS
+
+\l
+\c <database-name>
+\dt
+\dS <table-name>
+
+\x
+\df+
+
+DROP DATABASE <database-name>;
+DROP TABLE <table-name>;
+
+PUT does not behave properly
+make sure curl json input is sanitized? LastName last_name json value/sql column mismatch.. issue with struct?
+response values for add_user bad, issue..
+just fix/exclude routing middleware jwtware addon for some endpoint-> done
+
+
+mkdir repo &&
+cd repo &&
+git init &&
+git remote add -f origin $URL &&
+git config core.sparseCheckout true
+echo '$DIRNAME' >> .git/info/sparse-checkout # Do this for every directory you want.
+git fetch
+git checkout $BRANCH # Typically master
+
+
+https://github.com/ChristopherGS/ultimate-fastapi-tutorial
+part-12-react-frontend/frontend/
+
+https://linuxconfig.org/install-npm-on-linux
+https://phoenixnap.com/kb/update-node-js-version
+
+
+https://phoenixnap.com/kb/update-node-js-version
+
+8/23/2022
+write tests for backend
+make frontend
+add blob handling
+
+npm i react
+https://create-react-app.dev
+
+better->
+
+mkdir repo &&
+cd repo &&
+git init &&
+git remote add -f origin https://github.com/ChristopherGS/ultimate-fastapi-tutorial &&
+git config core.sparseCheckout true &&
+echo 'part-12-react-frontend/frontend/' >> .git/info/sparse-checkout &&
+git fetch &&
+git checkout main
+
+8/24/2022
+the frontend:
+App-Name and Logo ... ->  search bar ...JOIN / LOG IN -> cart?
+Categories... A|B|C|D ... SORT BY.. or filter by range  LICENSE? Start/Sell
+
+DropDowns for filter/sort.. DropDowns for asdf
+filter for free/nsfw
+filter by file type
+filter low/high poly
+drop downs for categories?
+sort by price asc/desc (high/low) newest
+
+changed dev.env to 8000
+
+-notes:
+include frontend
+exclude *.go, *.md, *.lock, *.json
+namechanges: Recipe, recipe, RECIPE
+including folder and file names..
+changed backend path /login to auth/login to match frontend
+changed parameters 'username' and 'password' to 'email' and 'pass' in client.js login fn to match backend

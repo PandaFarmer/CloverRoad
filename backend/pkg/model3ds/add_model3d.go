@@ -10,6 +10,8 @@ type AddModel3DRequestBody struct {
 	Author      string  `json:"author"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
+    BlobData    []byte  `json:"blob_data"`
+    FileName    string  `json:"file_name"`
 }
 
 func (h handler) AddModel3D(c *fiber.Ctx) error {
@@ -26,6 +28,8 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
+    model3d.BlobData = body.BlobData
+    model3d.FileName = body.FileName
 
 	// insert new db entry
 	if result := h.DB.Create(&model3d); result.Error != nil {

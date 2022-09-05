@@ -232,3 +232,53 @@ namechanges: Recipe, recipe, RECIPE
 including folder and file names..
 changed backend path /login to auth/login to match frontend
 changed parameters 'username' and 'password' to 'email' and 'pass' in client.js login fn to match backend
+later change some text in markup doctre
+
+8/26/2022
+notion- cloud storage https://gocloud.dev/howto/blob/
+
+curl --data "email=iqiao2011@gmail.com&pass=fakepassword" http://localhost:8000/auth/login
+
+curl -F 'file=@/home/iqiao/Documents/BlenderBlobs/Blob1.obj' \
+  --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99
+    "FileName":"Blob1.obj"
+  }' \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxNzkxOTkzLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.dgWkUTshCnfjF6mqJN54wrwUcEs3tRdDol1EBMp_r_A"
+
+/home/iqiao/Documents/BlenderBlobs/Blob1.obj
+
+curl --request POST \
+  --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99
+  }'
+
+curl --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99,
+    "":
+    "FileName":"Blob1.obj"
+  }' \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxNzkxOTkzLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.dgWkUTshCnfjF6mqJN54wrwUcEs3tRdDol1EBMp_r_A"
+
+  9/1/2022
+  home/index.jsx
+  handle commented
+  fetchRecipes
+  RecipeTable/index.jsx
+  Recipe/index.jsx
+  

@@ -10,6 +10,8 @@ type UpdateModel3DRequestBody struct {
 	Author      string `json:"author"`
 	Description string `json:"description"`
 	Price 		float64  `json:"price"`
+    BlobData    []byte  `json:"blob_data"`
+    FileName    string  `json:"file_name"`
 }
 
 func (h handler) UpdateModel3D(c *fiber.Ctx) error {
@@ -31,6 +33,8 @@ func (h handler) UpdateModel3D(c *fiber.Ctx) error {
     model3d.Author = body.Author
     model3d.Description = body.Description
     model3d.Price = body.Price
+    model3d.BlobData = body.BlobData
+    model3d.FileName = body.FileName
 
     // save model3d
     h.DB.Save(&model3d)

@@ -282,3 +282,9 @@ curl --url http://localhost:8000/model3ds \
   RecipeTable/index.jsx
   Recipe/index.jsx
   
+  9/5/2022
+  find where to disable jwt requirement for login page
+
+  9/16/2022
+  remove dashboardheader in jsx ref, jwt requirement stems from there
+  

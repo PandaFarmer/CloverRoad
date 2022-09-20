@@ -68,13 +68,13 @@ function DashboardHeader() {
         </div>
         <div className={`animate-fade-in-down w-full ${toggleMenu ? "block" : "hidden"} flex-grow lg:flex lg:items-center lg:w-auto`}>
             <div className="text-sm lg:flex-grow">
-                <a href={"https://fastapi-recipe-app.herokuapp.com/docs"} target={"_blank"} rel={"noreferrer"}
+                <a href={"https://fastapi-model3d-app.herokuapp.com/docs"} target={"_blank"} rel={"noreferrer"}
                     className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mx-4">
                     API Docs
                 </a>
-                <Link to="/my-recipes"
+                <Link to="/my-model3ds"
                     className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mx-4">
-                    My Recipes
+                    My Model3Ds
                 </Link>
                 {!isLoggedIn && <Link
                     className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"

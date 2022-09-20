@@ -81,35 +81,35 @@ class FastAPIClient {
     return client;
   }
 
-  getRecipe(recipeId) {
-    return this.apiClient.get(`/recipes/${recipeId}`);
+  getModel3D(model3dId) {
+    return this.apiClient.get(`/model3ds/${model3dId}`);
   }
 
-  getRecipes(keyword) {
-    return this.apiClient.get(`/recipes/search/?keyword=${keyword}&max_results=10`).then(({data}) => {
+  getModel3Ds(keyword) {
+    return this.apiClient.get(`/model3ds/search/?keyword=${keyword}&max_results=10`).then(({data}) => {
       return data;
     });
   }
 
-  getUserRecipes() {
-    return this.apiClient.get(`/recipes/my-recipes/`).then(({data}) => {
+  getUserModel3Ds() {
+    return this.apiClient.get(`/model3ds/my-model3ds/`).then(({data}) => {
       return data;
     });
   }
 
-  createRecipe(label, url, source, submitter_id) {
-    const recipeData = {
+  createModel3D(label, url, source, submitter_id) {
+    const model3dData = {
       label,
       url,
       source,
       submitter_id: submitter_id,
     };
-    return this.apiClient.post(`/recipes/`, recipeData);
+    return this.apiClient.post(`/model3ds/`, model3dData);
   }
 
 
-  deleteRecipe(recipeId) {
-    return this.apiClient.delete(`/recipes/${recipeId}`);
+  deleteModel3D(model3dId) {
+    return this.apiClient.delete(`/model3ds/${model3dId}`);
   }
 }
 

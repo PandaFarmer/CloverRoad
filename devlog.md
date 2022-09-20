@@ -288,3 +288,16 @@ curl --url http://localhost:8000/model3ds \
   9/16/2022
   remove dashboardheader in jsx ref, jwt requirement stems from there
   
+  9/20/2022
+  just git clone and comment out jwt in dashboard header, jwt/moment- fix later
+  namechanges-> {"Recipe":"Model3D", "recipe":"model3d"}
+
+   git add . &&
+ git commit -a &&
+git push -u FNamechanges~
+
+
+$ git remote add new-remote-repo https://bitbucket.com/user/repo.git
+# Add remote repo to local repo config
+$ git push <new-remote-repo> crazy-experiment~
+# pushes the crazy-experiment branch to new-remote-repo

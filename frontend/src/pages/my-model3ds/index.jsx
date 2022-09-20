@@ -5,7 +5,7 @@ import DashboardHeader from "../../components/DashboardHeader";
 import Footer from "../../components/Footer";
 import jwtDecode from "jwt-decode";
 import * as moment from "moment";
-import RecipeTable from "../../components/RecipeTable";
+import Model3DTable from "../../components/Model3DTable";
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
 import { NotLoggedIn } from "./NotLoggedIn";
@@ -14,11 +14,11 @@ import PopupModal from "../../components/Modal/PopupModal";
 
 const client = new FastAPIClient(config);
 
-const ProfileView = ({ recipes }) => {
+const ProfileView = ({ model3ds }) => {
 	return (
 		<>
-			<RecipeTable
-				recipes={recipes}
+			<Model3DTable
+				model3ds={model3ds}
 				
 				showUpdate={true}
 			/>
@@ -27,29 +27,29 @@ const ProfileView = ({ recipes }) => {
 	);
 };
 
-const RecipeDashboard = () => {
+const Model3DDashboard = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [error, setError] = useState({ label: "", url: "", source: "" });
-	const [recipeForm, setRecipeForm] = useState({
+	const [model3dForm, setModel3DForm] = useState({
 		label: "",
 		url: "https://",
 		source: "",
 	});
 
 	const [showForm, setShowForm] = useState(false);
-	const [recipes, setRecipes] = useState([]);
+	const [model3ds, setModel3Ds] = useState([]);
 
 	const [loading, setLoading] = useState(false);
 	const [refreshing, setRefreshing] = useState(true);
 
 	useEffect(() => {
-		fetchUserRecipes();
+		fetchUserModel3Ds();
 	}, []);
 
-	const fetchUserRecipes = () => {
-		client.getUserRecipes().then((data) => {
+	const fetchUserModel3Ds = () => {
+		client.getUserModel3Ds().then((data) => {
 			setRefreshing(false);
-			setRecipes(data?.results);
+			setModel3Ds(data?.results);
 		});
 	};
 
@@ -58,39 +58,39 @@ const RecipeDashboard = () => {
           return regex.test(URL);
         };
 
-	const onCreateRecipe = (e) => {
+	const onCreateModel3D = (e) => {
 		e.preventDefault();
 		setLoading(true);
 		setError(false);
 
-		if (recipeForm.label.length <= 0) {
+		if (model3dForm.label.length <= 0) {
 			setLoading(false);
-			return setError({ label: "Please Enter Recipe Label" });
+			return setError({ label: "Please Enter Model3D Label" });
 		}
-		if (recipeForm.url.length <= 0) {
+		if (model3dForm.url.length <= 0) {
 			setLoading(false);
-			return setError({ url: "Please Enter Recipe Url" });
+			return setError({ url: "Please Enter Model3D Url" });
 		}
-		if (!urlPatternValidation(recipeForm.url)) {
+		if (!urlPatternValidation(model3dForm.url)) {
 			setLoading(false);
 			return setError({ url: "Please Enter Valid URL" });
 		}
-		if (recipeForm.source.length <= 0) {
+		if (model3dForm.source.length <= 0) {
 			setLoading(false);
-			return setError({ source: "Please Enter Recipe Source" });
+			return setError({ source: "Please Enter Model3D Source" });
 		}
 
 		client.fetchUser().then((user) => {
 			client
-				.createRecipe(
-					recipeForm.label,
-					recipeForm.url,
-					recipeForm.source,
+				.createModel3D(
+					model3dForm.label,
+					model3dForm.url,
+					model3dForm.source,
 					user?.id
 				)
 				// eslint-disable-next-line no-unused-vars
 				.then((data) => {  // eslint:ignore
-					fetchUserRecipes();
+					fetchUserModel3Ds();
 					setLoading(false);
 					setShowForm(false);
 				});
@@ -120,7 +120,7 @@ const RecipeDashboard = () => {
 				<div className="container px-5 pt-6 text-center mx-auto lg:px-20">
 						{/*TODO - move to component*/}
 					<h1 className="mb-12 text-3xl font-medium text-white">
-						Recipes - Better than all the REST
+						Model3Ds - Better than all the REST
 					</h1>
 
 					<button
@@ -129,15 +129,15 @@ const RecipeDashboard = () => {
 							setShowForm(!showForm);
 						}}
 					>
-						Create Recipe
+						Create Model3D
 					</button>
 
-					<p className="text-base leading-relaxed text-white">Latest recipes</p>
+					<p className="text-base leading-relaxed text-white">Latest model3ds</p>
 					<div className="mainViewport text-white">
-						{recipes.length && (
+						{model3ds.length && (
 							<ProfileView
-								recipes={recipes}
-								fetchUserRecipes={fetchUserRecipes}
+								model3ds={model3ds}
+								fetchUserModel3Ds={fetchUserModel3Ds}
 							/>
 						)}
 					</div>
@@ -147,22 +147,22 @@ const RecipeDashboard = () => {
 			</section>
 			{showForm && (
 				<PopupModal
-					modalTitle={"Create Recipe"}
+					modalTitle={"Create Model3D"}
 					onCloseBtnPress={() => {
 						setShowForm(false);
 						setError({ fullName: "", email: "", password: "" });
 					}}
 				>
 					<div className="mt-4 text-left">
-						<form className="mt-5" onSubmit={(e) => onCreateRecipe(e)}>
+						<form className="mt-5" onSubmit={(e) => onCreateModel3D(e)}>
 							<FormInput
 								type={"text"}
 								name={"label"}
 								label={"Label"}
 								error={error.label}
-								value={recipeForm.label}
+								value={model3dForm.label}
 								onChange={(e) =>
-									setRecipeForm({ ...recipeForm, label: e.target.value })
+									setModel3DForm({ ...model3dForm, label: e.target.value })
 								}
 							/>
 							<FormInput
@@ -170,9 +170,9 @@ const RecipeDashboard = () => {
 								name={"url"}
 								label={"Url"}
 								error={error.url}
-								value={recipeForm.url}
+								value={model3dForm.url}
 								onChange={(e) =>
-									setRecipeForm({ ...recipeForm, url: e.target.value })
+									setModel3DForm({ ...model3dForm, url: e.target.value })
 								}
 							/>
 							<FormInput
@@ -180,15 +180,15 @@ const RecipeDashboard = () => {
 								name={"source"}
 								label={"Source"}
 								error={error.source}
-								value={recipeForm.source}
+								value={model3dForm.source}
 								onChange={(e) =>
-									setRecipeForm({ ...recipeForm, source: e.target.value })
+									setModel3DForm({ ...model3dForm, source: e.target.value })
 								}
 							/>
 							<Button
 								loading={loading}
 								error={error.source}
-								title={"Create Recipe"}
+								title={"Create Model3D"}
 							/>
 						</form>
 					</div>
@@ -198,4 +198,4 @@ const RecipeDashboard = () => {
 	);
 };
 
-export default RecipeDashboard;
+export default Model3DDashboard;

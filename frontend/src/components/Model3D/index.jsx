@@ -1,18 +1,18 @@
 import React from "react";
 
-const Recipe = ({ recipe,  showRecipeInfoModal }) => {
+const Model3D = ({ model3d,  showModel3DInfoModal }) => {
 	return (
-		recipe && (
+		model3d && (
 			<>
 				<div
 					
-					onClick={(e) => {showRecipeInfoModal() ; e.stopPropagation()}} 
+					onClick={(e) => {showModel3DInfoModal() ; e.stopPropagation()}} 
 					className="flex flex-wrap items-end justify-between w-full transition duration-500 ease-in-out transform bg-black border-2 border-gray-600 rounded-lg hover:border-white mb-3"
 				>
 					<div className="w-full xl:w-1/4 md:w-1/4">
 						<div className="relative flex flex-col h-full p-8 ">
 							<h2 className="mb-4 font-semibold tracking-widest text-white uppercase title-font">
-								{recipe?.label}
+								{model3d?.label}
 							</h2>
 							<h2 className="items-center mb-2 text-lg font-normal tracking-wide text-white">
 								<span className="inline-flex items-center justify-center flex-shrink-0 w-5 h-5 mr-2 text-white rounded-full bg-blue-1300">
@@ -28,19 +28,19 @@ const Recipe = ({ recipe,  showRecipeInfoModal }) => {
 										<path d="M20 6L9 17l-5-5"></path>
 									</svg>
 								</span>
-								{recipe?.source}
+								{model3d?.source}
 							</h2>
 						</div>
 					</div>
 					<div className="w-full xl:w-1/4 md:w-1/2 lg:ml-auto" style={{zindex: 10000}}>
 						<div className="relative flex flex-col h-full p-8">
 							<h1 className="flex items-end mx-auto text-3xl font-black leading-none text-white ">
-								<span>View Recipe </span>
+								<span>View Model3D </span>
 							</h1>
 							<div className="flex flex-col md:flex-row">
 								
 								<a
-									href={`${recipe?.url}`}
+									href={`${model3d?.url}`}
 									onClick={(e) => e.stopPropagation()}
 									className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  bg-teal-600 cursor-pointer hover:bg-teal-700 text-white font-bold px-4 py-2 mx-auto mt-3 rounded"
 								>
@@ -56,4 +56,4 @@ const Recipe = ({ recipe,  showRecipeInfoModal }) => {
 	);
 };
 
-export default Recipe;
+export default Model3D;

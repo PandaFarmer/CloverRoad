@@ -34,7 +34,7 @@ const Login = () => {
 
     client.login(loginForm.email, loginForm.password)
       .then( () => {
-        navigate('/my-recipes')
+        navigate('/my-model3ds')
       })
       .catch( (err) => {
         setLoading(false)

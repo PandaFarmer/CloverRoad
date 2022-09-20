@@ -294,7 +294,7 @@ curl --url http://localhost:8000/model3ds \
 
    git add . &&
  git commit -a &&
-git push -u FNamechanges~
+git push -u origin FNamechanges~
 
 
 $ git remote add new-remote-repo https://bitbucket.com/user/repo.git

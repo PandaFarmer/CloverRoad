@@ -44,9 +44,9 @@ class FiberClient {
         password: password,
       })
     .then((resp) => {
-      console.log(resp.data.token)
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('email', email);
+
       //return this.fetchUser();
     });
 
@@ -61,9 +61,10 @@ class FiberClient {
     };
 
     console.log(JSON.stringify(config))
+    console.log(JSON.stringify(localStorage.getItem('data')))
     return this.apiClient.get('http://localhost:8000/users', config
     ).then(({data}) => {
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data[0]));
       return data;
     });
   }
@@ -120,16 +121,17 @@ class FiberClient {
   }
 
   createModel3D(title, author, description, price, blob_data, file_name) {
-    console.log("author: "+author)
-    console.log("file_name: " + file_name)
+    // console.log("author: "+author)
+    // console.log("file_name: " + file_name)
+    console.log(localStorage.getItem('user'))
     const model3dData = {
-      title,
-      author, 
-      description, 
-      price, 
-      blob_data, 
-      file_name,
-      // submitter_id: submitter_id,
+      Title : title,
+      Author : localStorage.getItem('user')["user_name"], 
+      Description : description, 
+      Price : Math.round(price * 100) / 100,
+      BlobData : blob_data, 
+      FileName : file_name,
+      // slocalStorage.getItem('user')bmitter_id: submitter_id,
     };
     const config = {
       headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }

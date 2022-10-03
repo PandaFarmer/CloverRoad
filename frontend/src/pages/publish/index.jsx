@@ -64,14 +64,14 @@ const Publish = () => {
       setError(false);
       setLoading(true);
       console.log(localStorage.getItem('token'))
-      
+      console.log(parseFloat(model3DForm.price).toFixed(2))
       client.fetchUser().then((user) => {
-        console.log("user?.id: " + user?.id)
-        console.log("model3DForm.fileName: " + model3DForm.fileName)
+        // console.log("user[0].id: " + user[0].id)
+        // console.log("model3DForm.fileName: " + model3DForm.fileName)
               client
                   .createModel3D(
             model3DForm.title,
-            user?.id,
+            user.id,
             model3DForm.description,
             model3DForm.price,
             model3DForm.blobData,
@@ -113,7 +113,7 @@ const Publish = () => {
               setLoading(false);
               return setError({ blobData: "Please Enter Publishing file" });
       }
-      if (model3DForm.blobData.name.length <= 0) {//todo check for proper extension
+      if (model3DForm.fileName.length <= 0) {//todo check for proper extension
               setLoading(false);
               return setError({ fileName: "Please Enter Publishing File Name" });
       }

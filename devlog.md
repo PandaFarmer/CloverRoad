@@ -401,3 +401,42 @@ https://k3d.ivank.net/?p=download
 rewrote req to /model3d fixed url, body/header format fixed state update to handle event.target info before it get thrown away
 
 todo get K3D working or write your own.. or look for another library
+
+9017 e02c68d5-332e-4784-a4da-371cdc0acf49  400  -  POST     /model3ds
+Host=localhost:8000&Origin=http://localhost:3000&Accept-Language=en-US,en;q=0.9&Connection=keep-alive&Sec-Ch-Ua-Mobile=?0&Sec-Ch-Ua-Platform="Linux"&Sec-Fetch-Mode=cors&Sec-Fetch-Site=same-site&Content-Type=application/json&User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.83 Safari/537.36&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="99"&Accept=application/json, text/plain, */*&Referer=http://localhost:3000/&Accept-Encoding=gzip, deflate, br&Content-Length=190&Dnt=1&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MDkxMjkwLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.gkfn56WmxtyTuYXKpD5h88YjWyMwvgx0XpXBkrIW4kU&Sec-Fetch-Dest=empty
+
+{"title":"asdf1","author":1,"description":"asdf2","price":"asdf3","blob_data":{"groups":{},"c_verts":[],"c_uvt":[],"c_norms":[],"i_verts":[],"i_uvt":[],"i_norms":[]},"file_name":"Blob1.obj"}
+
+curl --request POST \
+  --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99,
+    "BlobData":{},
+    "FileName":"dezznutz.obj"
+  }' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MDkzMjYwLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.pFXmMW7qPdXYph9SKGG1ysgnO59My7bQjhHsK1cxfY8"
+
+whats the diff?..
+
+StormTrouuuper Helmet High Poly
+11645 c0f932cd-3c57-4d05-904e-da447099756d  201  -  POST     /model3ds
+Content-Length=186&Content-Type=application/json&User-Agent=curl/7.68.0&Accept=*/*&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MDkzMjYwLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.pFXmMW7qPdXYph9SKGG1ysgnO59My7bQjhHsK1cxfY8&Host=localhost:8000
+
+{
+    "Title":"StormTrouuuper Helmet High Poly",
+    "Author":"PandaFarmer",
+    "Description":"I like hats haha",
+    "Price":-6.99,
+    "BlobData":{},
+    "FileName":"dezznutz.obj"
+  }
+
+12637 c84389f1-55a5-4ea1-8ed3-271df0afab00  400  -  POST     /model3ds
+User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.83 Safari/537.36&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="99"&Sec-Fetch-Mode=cors&Host=localhost:8000&Content-Length=188&Sec-Ch-Ua-Mobile=?0&Sec-Ch-Ua-Platform="Linux"&Accept-Language=en-US,en;q=0.9&Connection=keep-alive&Accept=application/json, text/plain, */*&Sec-Fetch-Site=same-site&Accept-Encoding=gzip, deflate, br&Content-Type=application/json&Dnt=1&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MDkzMjYwLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.pFXmMW7qPdXYph9SKGG1ysgnO59My7bQjhHsK1cxfY8&Origin=http://localhost:3000&Sec-Fetch-Dest=empty&Referer=http://localhost:3000/
+
+{"Title":"asdf1","Author":1,"Description":"asdf2","Price":"28.99","BlobData":{"groups":{},"c_verts":[],"c_uvt":[],"c_norms":[],"i_verts":[],"i_uvt":[],"i_norms":[]},"FileName":"Blob1.obj"}
+
+just use Math.round(number * 100) / 100

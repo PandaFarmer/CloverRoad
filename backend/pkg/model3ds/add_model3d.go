@@ -9,7 +9,7 @@ import (
 
 type AddModel3DRequestBody struct {
 	Title       string  `json:"title"`
-	Author      string  `json:"author"`//email-username
+	Author      string  `json:"author"` //email-username
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	BlobData    []byte  `json:"blob_data"`
@@ -20,7 +20,9 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 	fmt.Println("herro adding model3d")
 	body := AddModel3DRequestBody{}
 
+	fmt.Println("something wrong with the received request body?")
 	// parse body, attach to AddModel3DRequestBody struct
+	fmt.Println(body)
 	if err := c.BodyParser(&body); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
@@ -31,6 +33,7 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
+	fmt.Println("will likely need to format BlobData")
 	model3d.BlobData = body.BlobData
 	model3d.FileName = body.FileName
 

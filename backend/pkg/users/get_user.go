@@ -1,30 +1,34 @@
 package users
 
 import (
-    "github.com/gofiber/fiber/v2"
-    "github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"fmt"
+
+	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"github.com/gofiber/fiber/v2"
 )
 
 func (h handler) GetUser(c *fiber.Ctx) error {
-    id := c.Params("id")
+	fmt.Println("getting user by id")
+	id := c.Params("id")
 
-    var user models.User
+	var user models.User
 
-    if result := h.DB.First(&user, id); result.Error != nil {
-        return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
-    }
+	if result := h.DB.First(&user, id); result.Error != nil {
+		return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
+	}
 
-    return c.Status(fiber.StatusOK).JSON(&user)
+	return c.Status(fiber.StatusOK).JSON(&user)
 }
 
 func (h handler) GetUserByEmail(c *fiber.Ctx) error {
-    email := c.Params("email")
+	fmt.Println("getting user by email")
+	email := c.Params("email")
 
-    var user models.User
+	var user models.User
 
-    if result := h.DB.First(&user, email); result.Error != nil {
-        return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
-    }
+	if result := h.DB.First(&user, email); result.Error != nil {
+		return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
+	}
 
-    return c.Status(fiber.StatusOK).JSON(&user)
+	return c.Status(fiber.StatusOK).JSON(&user)
 }

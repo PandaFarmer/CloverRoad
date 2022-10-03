@@ -289,15 +289,115 @@ curl --url http://localhost:8000/model3ds \
   remove dashboardheader in jsx ref, jwt requirement stems from there
   
   9/20/2022
+  
   just git clone and comment out jwt in dashboard header, jwt/moment- fix later
-  namechanges-> {"Recipe":"Model3D", "recipe":"model3d"}
+  namechanges-> {"Recipe":"Model3D", "recipe":"model3d", "FastAPI":"Fiber", "RECIPE":"MODEL3D, "https://christophergs.com/":"asdf"}
+  add something about bootstrapping? 
+
+git branch <branch>
+git branch -a
 
    git add . &&
  git commit -a &&
 git push -u origin FNamechanges
 
 
-$ git remote add new-remote-repo https://bitbucket.com/user/repo.git
-# Add remote repo to local repo config
-$ git push <new-remote-repo> crazy-experiment~
-# pushes the crazy-experiment branch to new-remote-repo
+git add . &&
+ git commit -a &&
+git push -u origin <branch>
+
+after namechanges to text and files..
+add semicolons to console(err)??
+config.js change apiBasePath
+comment out catch in index.js to stare at jwt issue in browser
+
+https://stackoverflow.com/questions/70585472/websocketclient-js16-websocket-connection-to-ws-localhost3000-ws-failed-r
+commented out localStorageTokenInterceptor and related in client.js fix later..
+don't really want jwt requirements for signup and login..?
+
+https://github.com/request/request/issues/579
+but with post
+
+
+9/21/2022
+reformatted apiClient post info (email, pass) to conform with axios params (not headers btw)
+
+https://dev.to/koddr/go-fiber-by-examples-delving-into-built-in-functions-1p3k#bodyparser
+use BodyParser instead of FormValue to read in params from backend
+commment out more dashboard headers stuff
+changed route in App.js / => Home to /home => Home
+useState default loading true to false for Home
+
+https://www.geeksforgeeks.org/file-uploading-in-react-js/
+refactor using Hook instead of class/component for model publishing page
+
+todo:
+decide whether/how to get FormInput going
+
+9/27/2022
+decide.. popup form, or not.. ok popups bad..use separate page?
+
+9/28/2022
+no render.. -rewrite dom todo
+get rid of non rendering issue due to infiinite loop by ommiting refreshing conditional..
+
+bad jwt
+why does localStorage("token") appear to not persist when switching pages?
+or its it a problem simply with jwtdecode..?
+just change "token_string" to "token" since that is the new json.parse output format
+
+todos:
+indicator/text to file being opened/queued for publishing
+css formatting for formInputs 
+
+9/29/2022
+changed background/forminput/button with tailwind css
+replaced this. and this.state with useState sets
+changed formData.append to json-like formatting
+
+refactor to have setModel3DForm as the standard, and to have FormData persist and not overwrite other Form object data onChange
+
+todo: fix apiClient header issues in client.js
+
+todo fix fetchUser routing/param issue on apiClient.get
+
+curl --request GET --url http://localhost:3000/users/1
+
+curl --data "email=iqiao2011@gmail.com&password=fakepassword" http://localhost:8000/auth/login
+
+somewhat strange that changing the "pass" field to "password" in the login struct is required to get the API endpoint to work
+about just as strange as having to change "lastname" to "surname" in the postgres table
+
+9/30/2022
+--data "email=iqiao2011@gmail.com" 
+curl --request GET --url http://localhost:8000/users?email=iqiao2011%40gmail.com -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY0ODE3NzI1LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.Pa0-MFTVAKSu_mvgxo1IcVjobSf-nAD-OkmEMwZSmqM"
+
+https://www.filestack.com/fileschool/react/react-file-upload/
+https://www.codegrepper.com/code-examples/javascript/curl+authorization+bearer+in+axios+get
+https://masteringjs.io/tutorials/axios/axios-multi-form-data
+https://www.w3schools.com/react/react_usestate.asp
+https://reqbin.com/req/c-sma2qrvp/curl-post-form-example
+https://stackoverflow.com/questions/64480353/how-to-use-curl-commands-with-reactjs
+https://www.codegrepper.com/code-examples/javascript/curl+authorization+bearer+in+axios+get
+
+
+10/3/2022
+whats the diff that makes the 401?
+
+11243 8fae53ee-78fc-44ee-9eca-3624993955ac  401  -  GET      /users
+ Sec-Ch-Ua-Mobile=?0&User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.83 Safari/537.36&Connection=keep-alive&Accept=application/json, text/plain, */*&Sec-Fetch-Dest=empty&Authorization=Bearer {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MDc1OTE1LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.VbPTA7qoI_bFj0eS6zQiyz2uzACaIFlPFj2YmK8Gcz8"}&Sec-Ch-Ua-Platform="Linux"&Sec-Fetch-Site=same-site&Host=localhost:8000&Accept-Language=en-US,en;q=0.9&Sec-Fetch-Mode=cors&Referer=http://localhost:3000/&Accept-Encoding=gzip, deflate, br&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="99"&Dnt=1&Origin=http://localhost:3000
+email=iqiao2011%40gmail.com
+getting users
+
+11243 90ae53ee-78fc-44ee-9eca-3624993955ac  200  -  GET      /users
+ Host=localhost:8000&User-Agent=curl/7.68.0&Accept=*/*&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY0ODE3NzI1LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.Pa0-MFTVAKSu_mvgxo1IcVjobSf-nAD-OkmEMwZSmqM
+email=iqiao2011%40gmail.com
+
+https://docs.gofiber.io/api/middleware/logger
+token formatting issue, use resp.data.token to store token data as string instead of obj in localstorage
+
+https://k3d.ivank.net/?p=download
+
+rewrote req to /model3d fixed url, body/header format fixed state update to handle event.target info before it get thrown away
+
+todo get K3D working or write your own.. or look for another library

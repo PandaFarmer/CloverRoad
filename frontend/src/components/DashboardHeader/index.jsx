@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import FastAPIClient from '../../client';
+import FiberClient from '../../client';
 import config from '../../config';
-// import jwtDecode from "jwt-decode";
-// import * as moment from "moment";
+import jwtDecode from "jwt-decode";
+import * as moment from "moment";
 
-const client = new FastAPIClient(config);
+const client = new FiberClient(config);
 
 function DashboardHeader() {
   const navigate = useNavigate();
@@ -16,14 +16,15 @@ function DashboardHeader() {
 
   useEffect(() => {
     setIsLoggedIn(true)
-  //   const tokenString = localStorage.getItem("token")
-	// if (tokenString) {
-  //       const token = JSON.parse(tokenString)
-  //       const decodedAccessToken = jwtDecode(token.access_token)
-  //       if(moment.unix(decodedAccessToken.exp).toDate() > new Date()){
-  //           setIsLoggedIn(true)
-  //       }
-  //   }
+    const tokenString = localStorage.getItem("token");
+
+    if (tokenString) {
+      //const token = JSON.parse(tokenString);
+      const decodedAccessToken = jwtDecode(tokenString);
+      if (moment.unix(decodedAccessToken.exp).toDate() > new Date()) {
+         setIsLoggedIn(true);
+      }
+    }
   }, [])
 
   const handleLogout = () => {
@@ -74,7 +75,7 @@ function DashboardHeader() {
                 </a>
                 <Link to="/my-model3ds"
                     className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mx-4">
-                    My Model3Ds
+                    My Publishings
                 </Link>
                 {!isLoggedIn && <Link
                     className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"

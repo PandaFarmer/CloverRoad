@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import DashboardHeader from "../../components/DashboardHeader";
 import {Link, useNavigate} from "react-router-dom";
-import FastAPIClient from '../../client';
+import FiberClient from '../../client';
 import config from '../../config';
 import Button from '../../components/Button/Button';
 import FormInput from '../../components/FormInput/FormInput';
 
-const client = new FastAPIClient(config);
+const client = new FiberClient(config);
 
 const Login = () => {
   const [error, setError] = useState({email: "", password: ""});
@@ -31,16 +31,19 @@ const Login = () => {
       setLoading(false)
       return setError({password: "Please Enter Password"})
     }
+    console.log("loginForm.email: " + loginForm.email)
+    console.log("loginForm.password: " + loginForm.password)
 
     client.login(loginForm.email, loginForm.password)
       .then( () => {
-        navigate('/my-model3ds')
+        //console.log("sugma");
+        navigate('/Home')
       })
-      .catch( (err) => {
-        setLoading(false)
-        setError(true);
-        console.err(err)
-      });
+      // .catch( (err) => {
+      //   setLoading(false);
+      //   setError(true);
+      //   console.err(err);
+      // });
   }
 
 

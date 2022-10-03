@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FastAPIClient from "../../client";
+import FiberClient from "../../client";
 import config from "../../config";
 import DashboardHeader from "../../components/DashboardHeader";
 import Footer from "../../components/Footer";
@@ -8,11 +8,11 @@ import * as moment from "moment";
 import Model3DTable from "../../components/Model3DTable";
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
-import { NotLoggedIn } from "./NotLoggedIn";
+import { NotLoggedIn } from "../not-logged-in/NotLoggedIn";
 import Loader from "../../components/Loader";
 import PopupModal from "../../components/Modal/PopupModal";
 
-const client = new FastAPIClient(config);
+const client = new FiberClient(config);
 
 const ProfileView = ({ model3ds }) => {
 	return (

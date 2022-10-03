@@ -12,3 +12,5 @@ export const NotLoggedIn = () =>
         <Link to="/login" className="rounded" >Go TO LOGIN</Link>
     </div>
 </div>
+
+export default NotLoggedIn;

@@ -1,20 +1,23 @@
 package model3ds
 
 import (
+	"fmt"
+
 	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
 	"github.com/gofiber/fiber/v2"
 )
 
 type AddModel3DRequestBody struct {
 	Title       string  `json:"title"`
-	Author      string  `json:"author"`
+	Author      string  `json:"author"`//email-username
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
-    BlobData    []byte  `json:"blob_data"`
-    FileName    string  `json:"file_name"`
+	BlobData    []byte  `json:"blob_data"`
+	FileName    string  `json:"file_name"`
 }
 
 func (h handler) AddModel3D(c *fiber.Ctx) error {
+	fmt.Println("herro adding model3d")
 	body := AddModel3DRequestBody{}
 
 	// parse body, attach to AddModel3DRequestBody struct
@@ -28,8 +31,10 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
-    model3d.BlobData = body.BlobData
-    model3d.FileName = body.FileName
+	model3d.BlobData = body.BlobData
+	model3d.FileName = body.FileName
+
+	fmt.Println(model3d.Title)
 
 	// insert new db entry
 	if result := h.DB.Create(&model3d); result.Error != nil {

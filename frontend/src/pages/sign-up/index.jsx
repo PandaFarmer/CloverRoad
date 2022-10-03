@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import DashboardHeader from "../../components/DashboardHeader";
 import {Link, useNavigate} from "react-router-dom";
-import FastAPIClient from '../../client';
+import FiberClient from '../../client';
 import config from '../../config';
 import Button from '../../components/Button/Button';
 import FormInput from '../../components/FormInput/FormInput';
 
-const client = new FastAPIClient(config);
+const client = new FiberClient(config);
 
 const SignUp = () => {
   const [error, setError] = useState({ email: '', password: '', fullName: '' });
@@ -42,9 +42,9 @@ const SignUp = () => {
         navigate('/login')
       })
       .catch( (err) => {
-        setLoading(false)
+        setLoading(false);
         setError(true);
-        alert(err)
+        alert(err);
       });
   }
 

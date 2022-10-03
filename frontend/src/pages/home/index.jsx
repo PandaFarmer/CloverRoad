@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import FastAPIClient from '../../client';
+import FiberClient from '../../client';
 import config from '../../config';
 import Model3DTable from "../../components/Model3DTable"
-import DashboardHeader from "../../components/DashboardHeader";
+// import DashboardHeader from "../../components/DashboardHeader";
 import Footer from "../../components/Footer";
 import Loader from '../../components/Loader';
 
-const client = new FastAPIClient(config);
+const client = new FiberClient(config);
 
 
 const Home = () => {
 
-     const [loading, setLoading] = useState(true)
+     const [loading, setLoading] = useState(false)
      const [model3ds, setModel3Ds] = useState([])
      const [searchValue, setSearchValue] = useState("chicken")
 
      useEffect(() => {
-          // FETCH THE RECIPIES
-          fetchModel3Ds()
+          // FETCH THE MODEL3DS
+          // fetchModel3Ds()
      }, [])
 
 
@@ -26,14 +26,14 @@ const Home = () => {
           if (searchValue?.length <= 0 && search)
                return alert("Please Enter Search Text")
 
-          // SET THE LOADER TO TURE
+          // SET THE LOADER TO TRUE
           setLoading(true)
 
-          // GET THE RECIPIES FROM THE API
+          // GET THE MODEL3DS FROM THE API
           client.getModel3Ds(searchValue).then((data) => {
                setLoading(false)
 
-               // SET THE RECIPIES DATA
+               // SET THE MODEL3D DATA
                setModel3Ds(data?.results)
           });
      }
@@ -45,13 +45,13 @@ const Home = () => {
      return (
           <>
                <section className="bg-black ">
-                    <DashboardHeader />
+                    {/* <DashboardHeader /> */}
 
                     <div className="container px-5 py-12 mx-auto lg:px-20">
 
                          <div className="flex flex-col flex-wrap pb-6 mb-12 text-white ">
                               <h1 className="mb-6 text-3xl font-medium text-white">
-                                   Model3Ds - Better than all the REST
+                                   Account Published 3D Art and Models
                               </h1>
                               {/* <!-- This is an example component --> */}
                               <div className="container flex justify-center items-center mb-6">

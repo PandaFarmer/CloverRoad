@@ -9,7 +9,7 @@ import (
 
 type AddModel3DRequestBody struct {
 	Title       string  `json:"title"`
-	Author      string  `json:"author"` //email-username
+	Author      string  `json:"author"` 
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	BlobData    []byte  `json:"blob_data"`

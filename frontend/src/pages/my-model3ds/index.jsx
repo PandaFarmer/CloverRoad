@@ -100,13 +100,13 @@ const Model3DDashboard = () => {
 	useEffect(() => {
 		const tokenString = localStorage.getItem("token");
 		if (tokenString) {
-			const token = JSON.parse(tokenString);
-			const decodedAccessToken = jwtDecode(token.access_token);
-			if (moment.unix(decodedAccessToken.exp).toDate() > new Date()) {
+			const decodedAccessToken = jwtDecode(tokenString);
+			if(moment.unix(decodedAccessToken.exp).toDate() > new Date()) {
 				setIsLoggedIn(true);
 			}
 		}
-	}, []);
+	}, [])
+
 
 	if (refreshing) return !isLoggedIn ? <NotLoggedIn /> : <Loader />;
 

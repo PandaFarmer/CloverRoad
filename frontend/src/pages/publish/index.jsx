@@ -11,9 +11,7 @@ import Button from "../../components/Button/Button";
 // import { NotLoggedIn } from "../not-logged-in/NotLoggedIn";
 // import Loader from "../../components/Loader";
 // import PopupModal from "../../components/Modal/PopupModal";
-import axios from 'axios';
 import DashboardHeader from "../../components/DashboardHeader";
-import K3D from "../../K3D"
 
 const client = new FiberClient(config);
 
@@ -21,6 +19,7 @@ const Publish = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState({ label: "", url: "", source: "" });
     const [loading, setLoading] = useState(false);
+    // const [uploadFile, setUploadFile] = useState();
     // const [refreshing, setRefreshing] = useState(false);
     // setRefreshing(false);
     
@@ -34,37 +33,34 @@ const Publish = () => {
 
 
     function onFileChange(event) {
+      const reader = new FileReader();
+      const fileByteArray = [];
+      reader.readAsArrayBuffer(event.target.files[0]);
+      reader.onloadend = function (evt) {
+          if (evt.target.readyState == FileReader.DONE) {
+             const arrayBuffer = evt.target.result,
+                 array = new Uint8Array(arrayBuffer);
+             for (var i = 0; i < array.length; i++) {
+                 fileByteArray.push(array[i]);
+              }
+          }
+      }
+
       setModel3DForm(previousState => {
-        return {...previousState, blobData : K3D.parse.fromOBJ(event.target.files[0]), fileName : event.target.files[0].name}
+        return {...previousState, blobData : fileByteArray, fileName : event.target.files[0].name}
+        // return {...previousState, blobData : K3D.parse.fromOBJ(event.target.files[0]), fileName : event.target.files[0].name}
       });
     }
-
-    const onFilePublish = () => {
-    
-      const formData = new FormData();
-
-      formData.append({
-        title: model3DForm.title,
-        author: model3DForm.author,
-        description: model3DForm.description,
-        price: model3DForm.price,
-        blobData: model3DForm.blobData,
-        fileName: model3DForm.fileName
-      });
-
-      // console.log(this.state.selectedFile);
-
-      axios.post("http://localhost:/auth/publish", formData);
-    };
-
   
     
     const onPublish = (e) => {
+      console.log("onPublish");
       e.preventDefault();
       setError(false);
       setLoading(true);
       console.log(localStorage.getItem('token'))
       console.log(parseFloat(model3DForm.price).toFixed(2))
+
       client.fetchUser().then((user) => {
         // console.log("user[0].id: " + user[0].id)
         // console.log("model3DForm.fileName: " + model3DForm.fileName)
@@ -82,20 +78,7 @@ const Publish = () => {
                       setLoading(false);
                   });
           });
-    
-      // const formData = new FormData()
-      // formData.append({
-      //   title: model3DForm.title,
-      //   author: model3DForm.author,
-      //   description: model3DForm.description,
-      //   price: model3DForm.price,
-      //   blobData: model3DForm.blobData,
-      //   fileName: model3DForm.blobData.name
-      // });
 
-      // // console.log(this.state.selectedFile);
-
-      // axios.post("http://localhost:/auth/publish", formData);
       console.log(model3DForm);
       if (model3DForm.title.length <= 0) {
               setLoading(false);
@@ -123,7 +106,6 @@ const Publish = () => {
       const tokenString = localStorage.getItem("token");
 
       if (tokenString) {
-        //const token = JSON.parse(tokenString);
         const decodedAccessToken = jwtDecode(tokenString);
         if (moment.unix(decodedAccessToken.exp).toDate() > new Date()) {
            setIsLoggedIn(true);
@@ -191,7 +173,7 @@ const Publish = () => {
 								loading={loading}
 								error={error.source}
 								title={"Publish"}
-                onClick={onFilePublish}
+                onClick={onPublish}
 							/>
 						</form>
 					</div>
@@ -199,13 +181,6 @@ const Publish = () => {
             error={error.source}>
             
             </FormInput>
-          <Button 
-            loading={loading}
-            onClick={(e) => onPublish(e)}
-            onChange={(e) =>
-              setModel3DForm({ ...model3DForm, url: e.target.value })
-            }
-            ></Button>
       </div>
       </>
     );

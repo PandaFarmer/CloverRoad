@@ -16,7 +16,7 @@ class FiberClient {
     this.login = this.login.bind(this);
     this.apiClient = this.getApiClient(this.config);
   }
-
+  // const [userName, setUserName] = useState("");
   /* ----- Authentication & User Operations ----- */
 
   /* Authenticate the user with the backend services.
@@ -46,8 +46,7 @@ class FiberClient {
     .then((resp) => {
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('email', email);
-
-      //return this.fetchUser();
+      return this.fetchUser();
     });
 
   }
@@ -64,7 +63,8 @@ class FiberClient {
     console.log(JSON.stringify(localStorage.getItem('data')))
     return this.apiClient.get('http://localhost:8000/users', config
     ).then(({data}) => {
-      localStorage.setItem('user', JSON.stringify(data[0]));
+      console.log("user: " + JSON.stringify(data[0]));
+      localStorage.setItem('user', data[0].user_name);
       return data;
     });
   }
@@ -115,7 +115,7 @@ class FiberClient {
   }
 
   getUserModel3Ds() {
-    return this.apiClient.get(`/model3ds/my-model3ds/`).then(({data}) => {
+    return this.apiClient.get(`/model3ds/`).then(({data}) => {
       return data;
     });
   }
@@ -123,13 +123,13 @@ class FiberClient {
   createModel3D(title, author, description, price, blob_data, file_name) {
     // console.log("author: "+author)
     // console.log("file_name: " + file_name)
-    console.log(localStorage.getItem('user'))
+    console.log("user in localStorage: " + localStorage.getItem('user'));
     const model3dData = {
       Title : title,
-      Author : localStorage.getItem('user')["user_name"], 
+      Author : localStorage.getItem('user'), 
       Description : description, 
       Price : Math.round(price * 100) / 100,
-      BlobData : blob_data, 
+      BlobData : blob_data,
       FileName : file_name,
       // slocalStorage.getItem('user')bmitter_id: submitter_id,
     };
@@ -138,7 +138,6 @@ class FiberClient {
     }
     return this.apiClient.post(`http://localhost:8000/model3ds`, model3dData, config);
   }
-
 
   deleteModel3D(model3dId) {
     return this.apiClient.delete(`/model3ds/${model3dId}`);

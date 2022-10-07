@@ -15,7 +15,6 @@ function DashboardHeader() {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(true)
     const tokenString = localStorage.getItem("token");
 
     if (tokenString) {
@@ -37,9 +36,17 @@ function DashboardHeader() {
     navigate("/login");
   }
 
+  function Greeting () {
+    // console.log("isLoggedIn: " + isLoggedIn);
+    if (isLoggedIn) {
+      return <h1>Welcome, {localStorage.getItem('user')}</h1>;
+    }
+    return <h1>Sign Up or Login to Interact with the Marketplace.</h1>;
+  }
+
   let displayButton;
   const buttonStyle = "inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-
+  // console.log("client.userName: "+ localStorage('user'));
   if (isLoggedIn) {
       displayButton = <button className={buttonStyle} onClick={() => handleLogout()}>Logout</button>;
     } else {
@@ -82,6 +89,11 @@ function DashboardHeader() {
                     to={`/sign-up`}>
                     Create Account
                 </Link>}
+                <Greeting className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mx-4"/>
+                
+                {/* {isLoggedIn &&<div className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                  <Greeting/>
+                  </div>} */}
             </div>
             <div>
               {displayButton}

@@ -440,3 +440,40 @@ User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko
 {"Title":"asdf1","Author":1,"Description":"asdf2","Price":"28.99","BlobData":{"groups":{},"c_verts":[],"c_uvt":[],"c_norms":[],"i_verts":[],"i_uvt":[],"i_norms":[]},"FileName":"Blob1.obj"}
 
 just use Math.round(number * 100) / 100
+fixed formatting for model3ds post request, matching field names in model3dData with backend request struct, formatting/type correctness, localStorage changes
+
+10/4/2022
+curl --request GET --url http://localhost:8000/model3ds -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY1MTU3MzEyLCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.pVcFIHZ2V8OSKHalxsw9ePceqb9qetIPu6aqwTIryTs"
+
+fixed issue with localstorage and username
+
+10/5/2022
+Login indicator in dashboard needs to work, state isLoggedIn must be consistent
+cleanup any lazy state to true sets, disallow jwt requirements for login/signup/default homepage
+Fixed login indicator for dashboard.. ++failure to login text
+
+10/7/2022
+https://stackoverflow.com/questions/37134433/convert-input-file-to-byte-array
+lmao just convert to byte array, imagine following request download struct field typing defined in golang backend
+fixed/completed upload/publish..?
+
+
+Todos:
+implement search and download
+Redirect login page to publish/my-model3ds/home if already logged in
+switch user?
+Signin Failure Behavior, captcha?
+NotLoggedIn Redirects
+Login Session timed expiration
+More Error Handling?
+Form Input validation/checking for publish page must be finalized/catch edge cases?
+search functionality in my-model3ds and/or homepage, same background
+dynamic population of searched items/categorical pages
+changes to dashboard-colours, size?
+threejs previews of loaded 3d models
+add paypal?-some transaction recording...
+aws/other cloud hosting?
+caching?
+testing kekw-but more logging, at least..?
+extension support for up to half of these:
+obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl

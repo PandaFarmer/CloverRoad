@@ -11,6 +11,8 @@ const client = new FiberClient(config);
 const Login = () => {
   const [error, setError] = useState({email: "", password: ""});
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [failedLogin, setFailedLogin] = useState(false);
+  // const [failedLoginAttempts, setFailedLoginAttempts] = useState(0);
 
   const [loading, setLoading] = useState(false)
 
@@ -39,11 +41,20 @@ const Login = () => {
         //console.log("sugma");
         navigate('/Home')
       })
-      // .catch( (err) => {
-      //   setLoading(false);
-      //   setError(true);
-      //   console.err(err);
-      // });
+      .catch( (err) => {//comment out for development?
+        setLoading(false);
+        setError(true);
+        setFailedLogin(true);
+        console.log(err);
+        console.error(err);
+      });
+  }
+  let loginWarningText;
+  const warningTextStyle = "text-red-600"
+  if (failedLogin) {
+    loginWarningText = <p className={warningTextStyle}>Cannot Find Account with Matching Email or Password</p>
+  } else {
+    loginWarningText = <p className={warningTextStyle}></p>
   }
 
 
@@ -62,6 +73,7 @@ const Login = () => {
                 </div>
               </header>
               <form onSubmit={(e) => onLogin(e)}>
+              
                 <FormInput 
                   type={"text"}
                   name={"email"}
@@ -78,11 +90,13 @@ const Login = () => {
                   value={loginForm.password} 
                   onChange={(e) => setLoginForm({...loginForm, password: e.target.value })}
                 />
+                {loginWarningText}  
                 <Button 
                   title={"Login"}  
                   loading={loading}
                   error={error.password}
-                  />      
+                  /> 
+                   
               </form>
               <footer>
                 <Link className="text-teal-700 hover:text-blue-900 text-sm float-right" to="/sign-up">Create Account</Link>

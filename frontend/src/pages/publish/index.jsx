@@ -13,6 +13,7 @@ import Button from "../../components/Button/Button";
 // import PopupModal from "../../components/Modal/PopupModal";
 import DashboardHeader from "../../components/DashboardHeader";
 
+
 const client = new FiberClient(config);
 
 const Publish = () => {
@@ -47,7 +48,7 @@ const Publish = () => {
       }
 
       setModel3DForm(previousState => {
-        return {...previousState, blobData : fileByteArray, fileName : event.target.files[0].name}
+        return {...previousState, fileName : event.target.files[0].name, blobData : fileByteArray}
         // return {...previousState, blobData : K3D.parse.fromOBJ(event.target.files[0]), fileName : event.target.files[0].name}
       });
     }

@@ -26,6 +26,15 @@ func main() {
 	}
 
 	app := fiber.New()
+	//	use form to receive filedata instead of json, this ReadBufferSize change is not need 4now
+	// app := fiber.New(fiber.Config{
+	// 	Prefork:       true,
+	// 	CaseSensitive: true,
+	// 	StrictRouting: true,
+	// 	ReadBufferSize: 32*1024*1024,
+	// 	ServerHeader:  "Fiber",
+	// 	AppName: "CloverRoad v0.01",
+	// })
 	db := db.Init(c.DBUrl)
 
 	//app.Get("/", func(ctx *fiber.Ctx) error {
@@ -38,12 +47,13 @@ func main() {
 	//app.Use(logger.New(logger.Config{
 	//    Format:     "[${ip}]:${port} ${status} - ${method} ${path}\n",
 	//}))
-
 	app.Use(requestid.New())
 
 	app.Use(logger.New(logger.Config{
 		// For more options, see the Config section
-		Format: "${pid} ${locals:requestid} ${status} - ${method} ${path}\n${reqHeaders}\n${queryParams}\n${body}\n",
+		Format: "pid: ${pid}${locals:requestid} ${status} - ${method} ${path}" +
+			"\nreqHeaders:${reqHeaders}\nqueryParams:${queryParams}\nbody:${body}" +
+			"\nresBody:${resBody}\nresHeaders:${resHeaders}",
 	}))
 
 	//Cors:

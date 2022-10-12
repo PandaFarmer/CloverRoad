@@ -12,7 +12,7 @@ type AddUserRequestBody struct {
 	Email		string `json:"email"`
 	UserName	string `json:"user_name"`
 	FirstName   string `json:"first_name"`
-	Surname	string `json:"surname`
+	Surname	string `json:"surname"`
 	Password	string `json:"password"`
 	DateJoined  time.Time   `json:"date_joined"`
 	IsSuperUser	bool 	`json:"is_super_user"`

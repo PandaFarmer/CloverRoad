@@ -18,7 +18,7 @@ class FiberClient {
   }
   // const [userName, setUserName] = useState("");
   /* ----- Authentication & User Operations ----- */
-
+  
   /* Authenticate the user with the backend services.
 	 * The same JWT should be valid for both the api and cms */
   login(email, password) {
@@ -52,8 +52,8 @@ class FiberClient {
   }
 
   fetchUser() {
-    const formData = new FormData();
-    formData.append('email', localStorage.getItem('email'));
+    // const formData = new FormData();
+    // formData.append('email', localStorage.getItem('email'));
     const config = {
       params:{email: localStorage.getItem('email')},
       headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }
@@ -115,28 +115,42 @@ class FiberClient {
   }
 
   getUserModel3Ds() {
-    return this.apiClient.get(`/model3ds/`).then(({data}) => {
+    const config = {
+      params:{user: localStorage.getItem('user')},
+      headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }
+    };
+
+    return this.apiClient.get(`/model3ds`, config).then(({data}) => {
+      console.log(data);
       return data;
     });
   }
 
-  createModel3D(title, author, description, price, blob_data, file_name) {
+  createModel3D(title, author, description, price, blobData, fileName) {
     // console.log("author: "+author)
     // console.log("file_name: " + file_name)
     console.log("user in localStorage: " + localStorage.getItem('user'));
-    const model3dData = {
-      Title : title,
-      Author : localStorage.getItem('user'), 
-      Description : description, 
-      Price : Math.round(price * 100) / 100,
-      BlobData : blob_data,
-      FileName : file_name,
-      // slocalStorage.getItem('user')bmitter_id: submitter_id,
-    };
+    const data = new FormData();
+    data.append("title", title);
+    data.append("author", localStorage.getItem('user'));
+    data.append("description", description);
+    data.append("price", Math.round(price * 100) / 100);
+    data.append("serialized_file_3d", blobData);
+    data.append("file_name_and_extension", fileName);
+    // const model3dData = {
+    //   Title : title,
+    //   Author : localStorage.getItem('user'), 
+    //   Description : description, 
+    //   Price : Math.round(price * 100) / 100,
+    //   SerializedFile3D : blobData,
+    //   FileNameAndExtension : fileName,
+    //   // slocalStorage.getItem('user')bmitter_id: submitter_id,
+    // };
     const config = {
       headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }
     }
-    return this.apiClient.post(`http://localhost:8000/model3ds`, model3dData, config);
+    return this.apiClient.post(`http://localhost:8000/model3ds`, data, config);
+    // return this.apiClient.post(`http://localhost:8000/model3ds`, model3dData, config);
   }
 
   deleteModel3D(model3dId) {

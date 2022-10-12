@@ -8,12 +8,12 @@ import (
 )
 
 type AddModel3DRequestBody struct {
-	Title       string  `json:"title"`
-	Author      string  `json:"author"` 
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
-	BlobData    []byte  `json:"blob_data"`
-	FileName    string  `json:"file_name"`
+	Title                string  `form:"title"`
+	Author               string  `form:"author"`
+	Description          string  `form:"description"`
+	Price                float64 `form:"price"`
+	SerializedFile3D     []byte  `form:"serialized_file_3d"`
+	FileNameAndExtension string  `form:"file_name_and_extension"`
 }
 
 func (h handler) AddModel3D(c *fiber.Ctx) error {
@@ -22,20 +22,32 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 
 	fmt.Println("something wrong with the received request body?")
 	// parse body, attach to AddModel3DRequestBody struct
-	fmt.Println(body)
 	if err := c.BodyParser(&body); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 
 	var model3d models.Model3D
 
+	fmt.Println("hello wtf")
+	// fmt.Println(body.SerializedFile3D)
+	fmt.Println(body)
+	fmt.Println(body.FileNameAndExtension)
+	fmt.Println("hello wtf")
+
+	// copyFields := make(map[string][]byte)
+	// for k, v := range fields{
+	// 	var copyField = make([]byte, len(v))
+	// 	copy(copyField, v)
+	// 	fmt.Println(string(copyField))
+	// 	copyFields[k] = copyField
+	// }
+
 	model3d.Title = body.Title
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
-	fmt.Println("will likely need to format BlobData")
-	model3d.BlobData = body.BlobData
-	model3d.FileName = body.FileName
+	model3d.SerializedFile3D = body.SerializedFile3D         //sus
+	model3d.FileNameAndExtension = body.FileNameAndExtension //sus
 
 	fmt.Println(model3d.Title)
 

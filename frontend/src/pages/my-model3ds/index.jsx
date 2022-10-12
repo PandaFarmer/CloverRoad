@@ -11,6 +11,7 @@ import Button from "../../components/Button/Button";
 import { NotLoggedIn } from "../not-logged-in/NotLoggedIn";
 import Loader from "../../components/Loader";
 import PopupModal from "../../components/Modal/PopupModal";
+import Buffer from "Buffer";
 
 const client = new FiberClient(config);
 
@@ -30,11 +31,19 @@ const ProfileView = ({ model3ds }) => {
 const Model3DDashboard = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [error, setError] = useState({ label: "", url: "", source: "" });
-	const [model3dForm, setModel3DForm] = useState({
-		label: "",
-		url: "https://",
-		source: "",
-	});
+	// const [model3DForm, setModel3DForm] = useState({
+	// 	label: "",
+	// 	url: "https://",
+	// 	source: "",
+	// });
+
+	const [model3DForm, setModel3DForm] = useState({
+        title: "",
+        description: "",
+        price: "",
+        blobData: null,
+        fileName: ""
+    });
 
 	const [showForm, setShowForm] = useState(false);
 	const [model3ds, setModel3Ds] = useState([]);
@@ -49,6 +58,10 @@ const Model3DDashboard = () => {
 	const fetchUserModel3Ds = () => {
 		client.getUserModel3Ds().then((data) => {
 			setRefreshing(false);
+			data.forEach(model3d => {
+				model3d.blobData = Buffer.from(data.blobData);
+				model3ds.append(model3d);
+			});
 			setModel3Ds(data?.results);
 		});
 	};
@@ -63,19 +76,19 @@ const Model3DDashboard = () => {
 		setLoading(true);
 		setError(false);
 
-		if (model3dForm.label.length <= 0) {
+		if (model3DForm.label.length <= 0) {
 			setLoading(false);
 			return setError({ label: "Please Enter Model3D Label" });
 		}
-		if (model3dForm.url.length <= 0) {
+		if (model3DForm.url.length <= 0) {
 			setLoading(false);
 			return setError({ url: "Please Enter Model3D Url" });
 		}
-		if (!urlPatternValidation(model3dForm.url)) {
+		if (!urlPatternValidation(model3DForm.url)) {
 			setLoading(false);
 			return setError({ url: "Please Enter Valid URL" });
 		}
-		if (model3dForm.source.length <= 0) {
+		if (model3DForm.source.length <= 0) {
 			setLoading(false);
 			return setError({ source: "Please Enter Model3D Source" });
 		}
@@ -83,9 +96,9 @@ const Model3DDashboard = () => {
 		client.fetchUser().then((user) => {
 			client
 				.createModel3D(
-					model3dForm.label,
-					model3dForm.url,
-					model3dForm.source,
+					model3DForm.label,
+					model3DForm.url,
+					model3DForm.source,
 					user?.id
 				)
 				// eslint-disable-next-line no-unused-vars
@@ -160,9 +173,9 @@ const Model3DDashboard = () => {
 								name={"label"}
 								label={"Label"}
 								error={error.label}
-								value={model3dForm.label}
+								value={model3DForm.label}
 								onChange={(e) =>
-									setModel3DForm({ ...model3dForm, label: e.target.value })
+									setModel3DForm({ ...model3DForm, label: e.target.value })
 								}
 							/>
 							<FormInput
@@ -170,9 +183,9 @@ const Model3DDashboard = () => {
 								name={"url"}
 								label={"Url"}
 								error={error.url}
-								value={model3dForm.url}
+								value={model3DForm.url}
 								onChange={(e) =>
-									setModel3DForm({ ...model3dForm, url: e.target.value })
+									setModel3DForm({ ...model3DForm, url: e.target.value })
 								}
 							/>
 							<FormInput
@@ -180,9 +193,9 @@ const Model3DDashboard = () => {
 								name={"source"}
 								label={"Source"}
 								error={error.source}
-								value={model3dForm.source}
+								value={model3DForm.source}
 								onChange={(e) =>
-									setModel3DForm({ ...model3dForm, source: e.target.value })
+									setModel3DForm({ ...model3DForm, source: e.target.value })
 								}
 							/>
 							<Button

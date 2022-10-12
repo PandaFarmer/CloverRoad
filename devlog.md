@@ -164,6 +164,8 @@ db pass: 3t4t5LQS
 \x
 \df+
 
+\q
+
 DROP DATABASE <database-name>;
 DROP TABLE <table-name>;
 
@@ -450,12 +452,18 @@ fixed issue with localstorage and username
 10/5/2022
 Login indicator in dashboard needs to work, state isLoggedIn must be consistent
 cleanup any lazy state to true sets, disallow jwt requirements for login/signup/default homepage
+https://reactjs.org/docs/conditional-rendering.html
+https://reactjs.org/docs/rendering-elements.html
 Fixed login indicator for dashboard.. ++failure to login text
 
 10/7/2022
 https://stackoverflow.com/questions/37134433/convert-input-file-to-byte-array
 lmao just convert to byte array, imagine following request download struct field typing defined in golang backend
 fixed/completed upload/publish..?
+
+https://gorm.io/docs/query.html
+
+my-model3ds.. redo model3dForm to accept and convert byte arrays?-else there will be a undefined error..
 
 
 Todos:
@@ -477,3 +485,22 @@ caching?
 testing kekw-but more logging, at least..?
 extension support for up to half of these:
 obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl
+
+npm i Buffer
+
+WHY DOES BODYPARSER NOT WORK AS INTENDED?
+
+10/11/2022
+read the fiber bodyparser source code,
+https://github.com/gofiber/fiber/blob/master/ctx.go
+see the strings.HasPrefix(ctype, MIMEApplicationForm)
+has
+data := make(map[string][]string)
+which i suppose allows fiber to not drop data and make an actual copy of the byte array
+https://stackoverflow.com/questions/43111772/golang-byte-array-communication-through-channel-loses-data
+https://stackoverflow.com/questions/55550834/how-to-set-mime-type-for-post-multipart-form-data-in-axios
+so, if you want to pass file data, use MIMEApplicationForm instead of json here
+also the issue seems to have nothing to do with the app.config ReadBufferSize param
+
+to reset db, go into the psql and DELETE FROM <tablename>;
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/

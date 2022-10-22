@@ -47,6 +47,12 @@ const Model3DDashboard = () => {
 
 	const [showForm, setShowForm] = useState(false);
 	const [model3ds, setModel3Ds] = useState([]);
+	function addItem(item) {
+		setModel3Ds([
+			...model3ds,
+			item
+		])
+	}
 
 	const [loading, setLoading] = useState(false);
 	const [refreshing, setRefreshing] = useState(true);
@@ -59,11 +65,14 @@ const Model3DDashboard = () => {
 		client.getUserModel3Ds().then((data) => {
 			setRefreshing(false);
 			data.forEach(model3d => {
-				model3d.blobData = Buffer.from(data.blobData);
-				model3ds.append(model3d);
+				model3d.blobData = Buffer.from(model3d.serialized_file_3d);
+				// setModel3Ds(model3ds.concat(model3d));
+				addItem(model3d);
 			});
-			setModel3Ds(data?.results);
+			
+			// setModel3Ds(data?.results);
 		});
+		console.log(model3ds);
 	};
 
    const urlPatternValidation = URL => {

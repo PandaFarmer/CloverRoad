@@ -6,13 +6,13 @@ import FormInput from "../FormInput/FormInput";
 const Model3DTable = ({model3ds}) => {
 
   const [model3dInfoModal, setModel3DInfoModal] = useState(false)
-
+//   console.log(model3ds);
     return (
       <>
         <div className="sections-list">
           {model3ds.length && (
               model3ds.map((model3d) => (
-                <Model3D showModel3DInfoModal={() => setModel3DInfoModal(model3d)} key={model3d.id} model3d={model3d}  />
+                <Model3D showModel3DInfoModal={() => setModel3DInfoModal(model3d)} key={model3d.id} model3d={model3d}/>
               ))
           )}
           {!model3ds.length && (

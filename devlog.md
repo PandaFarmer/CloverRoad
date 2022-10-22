@@ -305,7 +305,7 @@ git push -u origin FNamechanges
 
 
 git add . &&
- git commit -a &&
+git commit -a &&
 git push -u origin <branch>
 
 after namechanges to text and files..
@@ -465,27 +465,6 @@ https://gorm.io/docs/query.html
 
 my-model3ds.. redo model3dForm to accept and convert byte arrays?-else there will be a undefined error..
 
-
-Todos:
-implement search and download
-Redirect login page to publish/my-model3ds/home if already logged in
-switch user?
-Signin Failure Behavior, captcha?
-NotLoggedIn Redirects
-Login Session timed expiration
-More Error Handling?
-Form Input validation/checking for publish page must be finalized/catch edge cases?
-search functionality in my-model3ds and/or homepage, same background
-dynamic population of searched items/categorical pages
-changes to dashboard-colours, size?
-threejs previews of loaded 3d models
-add paypal?-some transaction recording...
-aws/other cloud hosting?
-caching?
-testing kekw-but more logging, at least..?
-extension support for up to half of these:
-obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl
-
 npm i Buffer
 
 WHY DOES BODYPARSER NOT WORK AS INTENDED?
@@ -499,8 +478,82 @@ data := make(map[string][]string)
 which i suppose allows fiber to not drop data and make an actual copy of the byte array
 https://stackoverflow.com/questions/43111772/golang-byte-array-communication-through-channel-loses-data
 https://stackoverflow.com/questions/55550834/how-to-set-mime-type-for-post-multipart-form-data-in-axios
-so, if you want to pass file data, use MIMEApplicationForm instead of json here
+so, if you want to pass file data, use MIMEApplicationForm instead of json, in both front and backend
+createModel3D(client.js) AddModel3dRequestBody(add_model3d.go)
 also the issue seems to have nothing to do with the app.config ReadBufferSize param
 
 to reset db, go into the psql and DELETE FROM <tablename>;
 https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-delete/
+
+https://stackoverflow.com/questions/50696857/append-array-of-values-to-the-current-array-in-a-state-in-react-js
+
+
+
+Todos:
+implement search and download
+threejs previews of loaded 3d models
+search functionality in my-model3ds and/or homepage, same background
+dynamic population of searched items/categorical pages
+Redirect login page to publish/my-model3ds/home if already logged in
+fix my-model-3ds page not rendering if user has no publishings
+switch user?
+Signin Failure Behavior, captcha?
+NotLoggedIn Redirects
+Login Session timed expiration
+More Error Handling?
+Form Input validation/checking for publish page must be finalized/catch edge cases?
+changes to dashboard-colours, size?
+add paypal?-some transaction recording...
+aws/other cloud hosting?
+caching?
+testing kekw-but more logging, at least..?
+extension support for up to half of these:
+obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl
+
+(possible exports: ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AdditiveBlending, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, BackSide, BasicDepthPacking, BasicShadowMap, Bone, BooleanKeyframeTrack, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferAttribute, BufferGeometry, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasTexture, CapsuleBufferGeometry, CapsuleGeometry, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, CircleGeometry, ClampToEdgeWrapping, Clock, Color, ColorKeyframeTrack, ColorManagement, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, Data3DTexture, DataArrayTexture, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DoubleSide, DstAlphaFactor, DstColorFactor, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, EventDispatcher, ExtrudeBufferGeometry, ExtrudeGeometry, FileLoader, Float16BufferAttribute, Float32BufferAttribute, Float64BufferAttribute, FloatType, Fog, FogExp2, FramebufferTexture, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16BufferAttribute, Int32BufferAttribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line, Line3, LineBasicMaterial, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LineSegments, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, MathUtils, Matrix3, Matrix4, MaxEquation, Mesh, MeshBasicMaterial, MeshDepthMaterial, MeshDistanceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColorSpace, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, Path, PerspectiveCamera, Plane, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointLight, PointLightHelper, Points, PointsMaterial, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBFormat, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, Raycaster, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGBColorSpace, Scene, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, Source, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, Texture, TextureLoader, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, Uint8BufferAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsGroup, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, VectorKeyframeTrack, VideoTexture, WebGL1Renderer, WebGL3DRenderTarget, WebGLArrayRenderTarget, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderer, WebGLUtils, WireframeGeometry, WrapAroundEnding, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, _SRGBAFormat, sRGBEncoding)
+
+10/13/2022
+https://r105.threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
+https://github.com/willbamford/react-with-threejs-example/blob/master/src/VisWithHooks.jsx
+https://mockstacks.com/Write-byte-array-to-file-in-Javascript
+
+10/14/2022
+https://hacks.mozilla.org/2012/02/saving-images-and-files-in-localstorage/
+
+https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+https://developer.mozilla.org/en-US/docs/Web/API/Blob
+
+
+10/16/2022
+https://stackoverflow.com/questions/35038884/download-file-from-bytes-in-javascript
+
+https://stackoverflow.com/questions/680929/how-to-extract-extension-from-filename-string-in-javascript
+
+10/17/2022
+https://gist.github.com/greggman/d34fbccd00b283bfb54aec1ebf3d973a
+
+https://stackoverflow.com/questions/18283772/how-to-create-a-file-object-from-binary-data-in-javascript
+
+don't know why it wont render
+possible reasons:
+-scuffed resource url
+-tailwind conflicts with threejs rendering properly
+-useEffect not executing? due to external or internal?
+-some threejs parameter required for render is missing
+-mesh material is undefined, issue with render?
+-rootNode of DOMTree aint being referenced properly kappa
+-
+
+10/21/2022
+todo:
+some tailwind changes to center model
+display info as well
+fix lack of multiple model3d components being displayed-elements get replaced per render?
+Add lighting or background or camera changes to improve presentation..
+Camera rotation on mouse drag
+
+file formats more than glb/gltf
+
+10/22/2022
+local webserver notion? client side ish?-but without fiber or drei :(
+https://stackoverflow.com/questions/64684300/cant-load-an-obj-file-with-three-js-and-objloader2

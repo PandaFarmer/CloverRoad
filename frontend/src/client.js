@@ -134,7 +134,7 @@ class FiberClient {
     data.append("title", title);
     data.append("author", localStorage.getItem('user'));
     data.append("description", description);
-    data.append("price", Math.round(price * 100) / 100);
+    data.append("price", Math.floor(price * 100) / 100);
     data.append("serialized_file_3d", blobData);
     data.append("file_name_and_extension", fileName);
     // const model3dData = {

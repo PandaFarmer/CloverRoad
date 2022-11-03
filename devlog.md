@@ -92,7 +92,7 @@ ALTER USER user_name WITH PASSWORD 'new_password';
     "is_super_user": true
   }'
 
-  curl --request GET --url http://localhost:3000/users/1
+  curl --request GET --url http://localhost:8000/users
 
 
 curl --request POST \
@@ -138,7 +138,7 @@ https://github.com/gofiber/jwt
 https://www.jajaldoang.com/post/how-to-update-golang/
 
 
-curl --data "email=iqiao2011@gmail.com&pass=fakepassword" http://localhost:8000/auth/login
+curl --data "email=iqiao2011@gmail.com&password=fakepassword" http://localhost:8000/auth/login
 
 curl localhost:3000/restricted -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjYxMTIyNDI1LCJuYW1lIjoiSm9obiBEb2UifQ.E3z-ecQYJ0UZCyy0uT8rS6XH7SE6M_XgkLhiQ9UsK1g"
 
@@ -372,7 +372,7 @@ about just as strange as having to change "lastname" to "surname" in the postgre
 
 9/30/2022
 --data "email=iqiao2011@gmail.com" 
-curl --request GET --url http://localhost:8000/users?email=iqiao2011%40gmail.com -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY0ODE3NzI1LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.Pa0-MFTVAKSu_mvgxo1IcVjobSf-nAD-OkmEMwZSmqM"
+curl --request GET --url http://localhost:8000/users?email=iqiao2011%40gmail.com -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY3NDk3OTg0LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.ovFy2c_-grXVP2sJ6mPJ0pKvsL0-Ag-ePS6gqbigYnk"
 
 https://www.filestack.com/fileschool/react/react-file-upload/
 https://www.codegrepper.com/code-examples/javascript/curl+authorization+bearer+in+axios+get
@@ -489,29 +489,6 @@ https://stackoverflow.com/questions/50696857/append-array-of-values-to-the-curre
 
 
 
-Todos:
-implement search and download
-threejs previews of loaded 3d models
-search functionality in my-model3ds and/or homepage, same background
-dynamic population of searched items/categorical pages
-Redirect login page to publish/my-model3ds/home if already logged in
-fix my-model-3ds page not rendering if user has no publishings
-switch user?
-Signin Failure Behavior, captcha?
-NotLoggedIn Redirects
-Login Session timed expiration
-More Error Handling?
-Form Input validation/checking for publish page must be finalized/catch edge cases?
-changes to dashboard-colours, size?
-add paypal?-some transaction recording...
-aws/other cloud hosting?
-caching?
-testing kekw-but more logging, at least..?
-extension support for up to half of these:
-obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl
-
-(possible exports: ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationBlendMode, AdditiveBlending, AlphaFormat, AlwaysDepth, AlwaysStencilFunc, AmbientLight, AmbientLightProbe, AnimationClip, AnimationLoader, AnimationMixer, AnimationObjectGroup, AnimationUtils, ArcCurve, ArrayCamera, ArrowHelper, Audio, AudioAnalyser, AudioContext, AudioListener, AudioLoader, AxesHelper, BackSide, BasicDepthPacking, BasicShadowMap, Bone, BooleanKeyframeTrack, Box2, Box3, Box3Helper, BoxBufferGeometry, BoxGeometry, BoxHelper, BufferAttribute, BufferGeometry, BufferGeometryLoader, ByteType, Cache, Camera, CameraHelper, CanvasTexture, CapsuleBufferGeometry, CapsuleGeometry, CatmullRomCurve3, CineonToneMapping, CircleBufferGeometry, CircleGeometry, ClampToEdgeWrapping, Clock, Color, ColorKeyframeTrack, ColorManagement, CompressedTexture, CompressedTextureLoader, ConeBufferGeometry, ConeGeometry, CubeCamera, CubeReflectionMapping, CubeRefractionMapping, CubeTexture, CubeTextureLoader, CubeUVReflectionMapping, CubicBezierCurve, CubicBezierCurve3, CubicInterpolant, CullFaceBack, CullFaceFront, CullFaceFrontBack, CullFaceNone, Curve, CurvePath, CustomBlending, CustomToneMapping, CylinderBufferGeometry, CylinderGeometry, Cylindrical, Data3DTexture, DataArrayTexture, DataTexture, DataTexture2DArray, DataTexture3D, DataTextureLoader, DataUtils, DecrementStencilOp, DecrementWrapStencilOp, DefaultLoadingManager, DepthFormat, DepthStencilFormat, DepthTexture, DirectionalLight, DirectionalLightHelper, DiscreteInterpolant, DodecahedronBufferGeometry, DodecahedronGeometry, DoubleSide, DstAlphaFactor, DstColorFactor, DynamicCopyUsage, DynamicDrawUsage, DynamicReadUsage, EdgesGeometry, EllipseCurve, EqualDepth, EqualStencilFunc, EquirectangularReflectionMapping, EquirectangularRefractionMapping, Euler, EventDispatcher, ExtrudeBufferGeometry, ExtrudeGeometry, FileLoader, Float16BufferAttribute, Float32BufferAttribute, Float64BufferAttribute, FloatType, Fog, FogExp2, FramebufferTexture, FrontSide, Frustum, GLBufferAttribute, GLSL1, GLSL3, GreaterDepth, GreaterEqualDepth, GreaterEqualStencilFunc, GreaterStencilFunc, GridHelper, Group, HalfFloatType, HemisphereLight, HemisphereLightHelper, HemisphereLightProbe, IcosahedronBufferGeometry, IcosahedronGeometry, ImageBitmapLoader, ImageLoader, ImageUtils, ImmediateRenderObject, IncrementStencilOp, IncrementWrapStencilOp, InstancedBufferAttribute, InstancedBufferGeometry, InstancedInterleavedBuffer, InstancedMesh, Int16BufferAttribute, Int32BufferAttribute, Int8BufferAttribute, IntType, InterleavedBuffer, InterleavedBufferAttribute, Interpolant, InterpolateDiscrete, InterpolateLinear, InterpolateSmooth, InvertStencilOp, KeepStencilOp, KeyframeTrack, LOD, LatheBufferGeometry, LatheGeometry, Layers, LessDepth, LessEqualDepth, LessEqualStencilFunc, LessStencilFunc, Light, LightProbe, Line, Line3, LineBasicMaterial, LineCurve, LineCurve3, LineDashedMaterial, LineLoop, LineSegments, LinearEncoding, LinearFilter, LinearInterpolant, LinearMipMapLinearFilter, LinearMipMapNearestFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, LinearToneMapping, Loader, LoaderUtils, LoadingManager, LoopOnce, LoopPingPong, LoopRepeat, LuminanceAlphaFormat, LuminanceFormat, MOUSE, Material, MaterialLoader, MathUtils, Matrix3, Matrix4, MaxEquation, Mesh, MeshBasicMaterial, MeshDepthMaterial, MeshDistanceMaterial, MeshLambertMaterial, MeshMatcapMaterial, MeshNormalMaterial, MeshPhongMaterial, MeshPhysicalMaterial, MeshStandardMaterial, MeshToonMaterial, MinEquation, MirroredRepeatWrapping, MixOperation, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipMapLinearFilter, NearestMipMapNearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NeverStencilFunc, NoBlending, NoColorSpace, NoToneMapping, NormalAnimationBlendMode, NormalBlending, NotEqualDepth, NotEqualStencilFunc, NumberKeyframeTrack, Object3D, ObjectLoader, ObjectSpaceNormalMap, OctahedronBufferGeometry, OctahedronGeometry, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, OrthographicCamera, PCFShadowMap, PCFSoftShadowMap, PMREMGenerator, Path, PerspectiveCamera, Plane, PlaneBufferGeometry, PlaneGeometry, PlaneHelper, PointLight, PointLightHelper, Points, PointsMaterial, PolarGridHelper, PolyhedronBufferGeometry, PolyhedronGeometry, PositionalAudio, PropertyBinding, PropertyMixer, QuadraticBezierCurve, QuadraticBezierCurve3, Quaternion, QuaternionKeyframeTrack, QuaternionLinearInterpolant, REVISION, RGBADepthPacking, RGBAFormat, RGBAIntegerFormat, RGBA_ASTC_10x10_Format, RGBA_ASTC_10x5_Format, RGBA_ASTC_10x6_Format, RGBA_ASTC_10x8_Format, RGBA_ASTC_12x10_Format, RGBA_ASTC_12x12_Format, RGBA_ASTC_4x4_Format, RGBA_ASTC_5x4_Format, RGBA_ASTC_5x5_Format, RGBA_ASTC_6x5_Format, RGBA_ASTC_6x6_Format, RGBA_ASTC_8x5_Format, RGBA_ASTC_8x6_Format, RGBA_ASTC_8x8_Format, RGBA_BPTC_Format, RGBA_ETC2_EAC_Format, RGBA_PVRTC_2BPPV1_Format, RGBA_PVRTC_4BPPV1_Format, RGBA_S3TC_DXT1_Format, RGBA_S3TC_DXT3_Format, RGBA_S3TC_DXT5_Format, RGBFormat, RGB_ETC1_Format, RGB_ETC2_Format, RGB_PVRTC_2BPPV1_Format, RGB_PVRTC_4BPPV1_Format, RGB_S3TC_DXT1_Format, RGFormat, RGIntegerFormat, RawShaderMaterial, Ray, Raycaster, RectAreaLight, RedFormat, RedIntegerFormat, ReinhardToneMapping, RepeatWrapping, ReplaceStencilOp, ReverseSubtractEquation, RingBufferGeometry, RingGeometry, SRGBColorSpace, Scene, ShaderChunk, ShaderLib, ShaderMaterial, ShadowMaterial, Shape, ShapeBufferGeometry, ShapeGeometry, ShapePath, ShapeUtils, ShortType, Skeleton, SkeletonHelper, SkinnedMesh, Source, Sphere, SphereBufferGeometry, SphereGeometry, Spherical, SphericalHarmonics3, SplineCurve, SpotLight, SpotLightHelper, Sprite, SpriteMaterial, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticCopyUsage, StaticDrawUsage, StaticReadUsage, StereoCamera, StreamCopyUsage, StreamDrawUsage, StreamReadUsage, StringKeyframeTrack, SubtractEquation, SubtractiveBlending, TOUCH, TangentSpaceNormalMap, TetrahedronBufferGeometry, TetrahedronGeometry, Texture, TextureLoader, TorusBufferGeometry, TorusGeometry, TorusKnotBufferGeometry, TorusKnotGeometry, Triangle, TriangleFanDrawMode, TriangleStripDrawMode, TrianglesDrawMode, TubeBufferGeometry, TubeGeometry, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, Uint8BufferAttribute, Uint8ClampedBufferAttribute, Uniform, UniformsGroup, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedInt248Type, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, VectorKeyframeTrack, VideoTexture, WebGL1Renderer, WebGL3DRenderTarget, WebGLArrayRenderTarget, WebGLCubeRenderTarget, WebGLMultipleRenderTargets, WebGLMultisampleRenderTarget, WebGLRenderTarget, WebGLRenderer, WebGLUtils, WireframeGeometry, WrapAroundEnding, ZeroCurvatureEnding, ZeroFactor, ZeroSlopeEnding, ZeroStencilOp, _SRGBAFormat, sRGBEncoding)
-
 10/13/2022
 https://r105.threejsfundamentals.org/threejs/lessons/threejs-load-obj.html
 https://github.com/willbamford/react-with-threejs-example/blob/master/src/VisWithHooks.jsx
@@ -557,3 +534,131 @@ file formats more than glb/gltf
 10/22/2022
 local webserver notion? client side ish?-but without fiber or drei :(
 https://stackoverflow.com/questions/64684300/cant-load-an-obj-file-with-three-js-and-objloader2
+
+fixed dynamic population for Model3DTable
+https://thewebdev.info/2021/03/13/how-to-push-or-append-an-element-to-a-state-array-with-react-hooks/
+
+changed to using gltf, now shows models in pixelated profile
+
+to consider:
+model3d packages->referencing multiple entries?
+pointerDown vs. mouseDown -> rotate model or update orthographic camera?
+
+10/23/2022
+screw three js
+just have users upload png/gif, +blob that is an array of files
+
+https://stackoverflow.com/questions/35038884/download-obj-from-bytes-in-javascript
+https://mockstacks.com/How-to-Convert-Blob-to-File-Using-Javascript
+
+
+10/27/2022
+?
+clearing localstorage/ application/browser cache required for backend to return body/resBody?????????????????????????????????????????????????????????
+
+for issue with Access-Control-Allow-Origin
+https://docs.gofiber.io/api/constants
+https://github.com/gofiber/fiber/blob/master/ctx.go
+
+10/28/2022
+some interesting examples?:
+https://github.com/gofiber/recipes
+
+Ok api works with cors and csrf?
+cors header settings needed:AllowOrigins, AllowMethods, AllowHeaders,AllowCredentials
+single defer after (only for registering endpoint requiring jwt auth)
+client side header addition??-not needed..
+3rd param setting needed for cors, not just inclusive of 2
+
+https://gorm.io/docs/method_chaining.html
+https://www.golinuxcloud.com/golang-defer-keyword/
+https://docs.gofiber.io/v/2.x/api/middleware/cors
+https://stackoverflow.com/questions/28252117/golang-nested-class-inside-function
+
+10/30/2022
+https://pkg.go.dev/time#Time.Format
+https://www.w3schools.com/jsref/jsref_tostring_date.asp
+https://javascript.info/date
+
+curl --request GET \
+  --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "keywords" : "asdf",
+    "max_results" : 10,
+    "lastUpdated" : ,
+    "minPrice" : ,
+    "maxPrice" : ,
+  }'
+
+10/31/2022
+jwt randomly decides to stop working on endpoints "/Publish" (which was working b4) and all others in deferred registration
+403 on a previously working endpoint..
+
+11/1/2022
+How to solve to 403:
+fiddle with config params for jwt initialization..
+more logging?
+why does GET users work but POST model3d or GET model3ds does not?
+
+curl --request POST \
+  --url http://localhost:8000/model3ds \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "title":"sugma",
+    "author":"sugma",
+    "description":"sugma",
+    "price":"42",
+    "serialized_preview_file":{},
+    "preview_file_name_and_extension":"sugma.png",
+    "serialized_file_3d":{},
+    "file_name_and_extension":"sugma.obj",
+  }' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY3NDk3OTg0LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.ovFy2c_-grXVP2sJ6mPJ0pKvsL0-Ag-ePS6gqbigYnk"
+
+WHY:
+pid: 11896bd7002ed-2a79-4bac-a92f-4eb6464a14cc  200  -  GET      /users
+reqHeaders:Accept=application/json, text/plain, */*&Sec-Ch-Ua-Platform="Linux"&Connection=keep-alive&Sec-Fetch-Mode=cors&Referer=http://localhost:3000/&Host=localhost:8000&User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.83 Safari/537.36&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="99"&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY3NDk3OTg0LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.ovFy2c_-grXVP2sJ6mPJ0pKvsL0-Ag-ePS6gqbigYnk&Sec-Ch-Ua-Mobile=?0&Sec-Fetch-Dest=empty&Accept-Encoding=gzip, deflate, br&Accept-Language=en-US,en;q=0.9&Dnt=1&Origin=http://localhost:3000&Sec-Fetch-Site=same-site
+queryParams:email=iqiao2011%40gmail.com
+body:
+resBody:[{"id":1,"email":"iqiao2011@gmail.com","user_name":"PandaFarmer","full_name":"","password":"$2a$04$CFrXGrx1/PS8MdaHIUPhY.njABElWe67.1kmctImErJu917SFMbPi","date_joined":"2022-08-22T09:49:41.885828-07:00","is_super_user":true}]
+resHeaders:
+
+??????????????//
+pid: 1521186bf3c93-12a4-4abe-b851-3d0e0f293164  403  -  POST     /model3ds
+reqHeaders:Content-Length=208340&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="99"&Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjY3NDk3OTg0LCJuYW1lIjoiUGFuZGFGYXJtZXIifQ.ovFy2c_-grXVP2sJ6mPJ0pKvsL0-Ag-ePS6gqbigYnk&Sec-Fetch-Mode=cors&Accept-Encoding=gzip, deflate, br&Connection=keep-alive&Dnt=1&Sec-Ch-Ua-Mobile=?0&Accept=application/json, text/plain, */*&Accept-Language=en-US,en;q=0.9&Host=localhost:8000&Content-Type=multipart/form-data; boundary=----WebKitFormBoundary9Odw9dbqWeT1cirq&Sec-Ch-Ua-Platform="Linux"&Origin=http://localhost:3000&Sec-Fetch-Dest=empty&Referer=http://localhost:3000/&User-Agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.83 Safari/537.36&Sec-Fetch-Site=same-site
+queryParams:
+
+
+
+
+
+
+
+
+Todos:
+
+for reasonable MVP:
+search functionality in my-model3ds and/or homepage, same background
+tags/categories
+onHover display info?
+onClick smaller link to buy/inspect model
+margins/padding per tile,
+publish/save -> show preview image
+multiple files/filetypes per model3d entry
+implement search and download
+switch user?
+Redirect login page to publish/my-model3ds/home if already logged in
+fix my-model-3ds page not rendering if user has no publishings
+Signin Failure Behavior, captcha?
+NotLoggedIn Redirects
+Login Session timed expiration
+More Error Handling?
+Form Input validation/checking for publish page must be finalized/catch edge cases?
+sales prices/percent offs+duration
+changes to dashboard-colours, size?
+add paypal?-some transaction recording...
+aws/other cloud hosting?
+caching?
+testing kekw-but more logging, at least..?
+extension support for up to half of these:
+obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl

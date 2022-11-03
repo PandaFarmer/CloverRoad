@@ -10,7 +10,7 @@ type handler struct {
 }
 
 
-func RegisterRoutes(app *fiber.App, db *gorm.DB) {
+func RegisterRoutes(app *fiber.App, db *gorm.DB,) {// jwtfn func(*fiber.Ctx)) {
     h := &handler{
         DB: db,
     }
@@ -18,6 +18,7 @@ func RegisterRoutes(app *fiber.App, db *gorm.DB) {
     routes := app.Group("/model3ds")
     routes.Post("/", h.AddModel3D)
     routes.Get("/", h.GetModel3Ds)
+    routes.Get("/search", h.GetModel3DsSearch)
     routes.Get("/:user", h.GetUserModel3Ds)
     routes.Get("/:id", h.GetModel3D)
     routes.Put("/:id", h.UpdateModel3D)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FiberClient from '../../client';
 import config from '../../config';
 import Model3DTable from "../../components/Model3DTable"
-// import DashboardHeader from "../../components/DashboardHeader";
+import DashboardHeader from "../../components/DashboardHeader";
 import Footer from "../../components/Footer";
 import Loader from '../../components/Loader';
 
@@ -30,7 +30,7 @@ const Home = () => {
           setLoading(true)
 
           // GET THE MODEL3DS FROM THE API
-          client.getModel3Ds(searchValue).then((data) => {
+          client.getModel3Ds(searchValue, 10, new Date(), 0, 1000).then((data) => {
                setLoading(false)
 
                // SET THE MODEL3D DATA
@@ -45,7 +45,7 @@ const Home = () => {
      return (
           <>
                <section className="bg-black ">
-                    {/* <DashboardHeader /> */}
+                    <DashboardHeader />
 
                     <div className="container px-5 py-12 mx-auto lg:px-20">
 

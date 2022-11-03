@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FiberClient from "../../client";
 import config from "../../config";
-// import DashboardHeader from "../../components/DashboardHeader";
+import DashboardHeader from "../../components/DashboardHeader";
 // import Footer from "../../components/Footer";
 import jwtDecode from "jwt-decode";
 import * as moment from "moment";
@@ -11,7 +11,6 @@ import Button from "../../components/Button/Button";
 // import { NotLoggedIn } from "../not-logged-in/NotLoggedIn";
 // import Loader from "../../components/Loader";
 // import PopupModal from "../../components/Modal/PopupModal";
-import DashboardHeader from "../../components/DashboardHeader";
 
 
 const client = new FiberClient(config);
@@ -28,12 +27,13 @@ const Publish = () => {
         title: "",
         description: "",
         price: "",
+        previewBlobData: null,
+        previewFileName: "",
         blobData: null,
         fileName: ""
     });
 
-
-    function onFileChange(event) {
+    function ByteArrayFromFileLoadEvent(event) {
       const reader = new FileReader();
       const fileByteArray = [];
       reader.readAsArrayBuffer(event.target.files[0]);
@@ -46,10 +46,23 @@ const Publish = () => {
               }
           }
       }
+      return fileByteArray;
+    }
 
+    function onPreviewFileChange(event) {
+      const fileByteArray = ByteArrayFromFileLoadEvent(event);
+      
+      setModel3DForm(previousState => {
+        return {...previousState, previewFileName : event.target.files[0].name, previewBlobData : fileByteArray}
+      });
+    }
+
+
+    function onFileChange(event) {
+      const fileByteArray = ByteArrayFromFileLoadEvent(event);
+      
       setModel3DForm(previousState => {
         return {...previousState, fileName : event.target.files[0].name, blobData : fileByteArray}
-        // return {...previousState, blobData : K3D.parse.fromOBJ(event.target.files[0]), fileName : event.target.files[0].name}
       });
     }
   
@@ -71,6 +84,8 @@ const Publish = () => {
             user.id,
             model3DForm.description,
             model3DForm.price,
+            model3DForm.previewBlobData,
+            model3DForm.previewFileName,
             model3DForm.blobData,
             model3DForm.fileName,
                   )
@@ -105,22 +120,26 @@ const Publish = () => {
 
     useEffect(() => {
       const tokenString = localStorage.getItem("token");
-
+      console.log("y u no execute");
       if (tokenString) {
         const decodedAccessToken = jwtDecode(tokenString);
+        console.log("token date: " + moment.unix(decodedAccessToken.exp).toDate());
+        console.log("new date: " + (new Date()));
         if (moment.unix(decodedAccessToken.exp).toDate() > new Date()) {
            setIsLoggedIn(true);
         }
+        if(isLoggedIn) {
+          console.log("user is logged in!");
+        }
+        else {
+          console.log("WARNING:user is not logged in");
+        }
       }
     }, []);
-
+    console.log("localStorage.getItem(\"token\"): " + localStorage.getItem("token"));
+    
     // if (refreshing) return !isLoggedIn ? <NotLoggedIn /> : <Loader />;
-    if(isLoggedIn) {
-      console.log("user is logged in!");
-    }
-    else {
-      console.log("WARNING:user is not logged in");
-    }
+    
     return (
       <>
       <DashboardHeader/>
@@ -155,7 +174,12 @@ const Publish = () => {
                   });
 								}}
 							/>
-              <input type="file" className="w-72 shadow rounded" 
+              <label htmlFor="previewFile">Preview Image File: </label>
+              <input type="file" className="w-72 shadow rounded" id="previewFile"
+                onChange={onPreviewFileChange} 
+                />
+              <label htmlFor="model3dFile">3D Model File: </label>
+              <input type="file" className="w-72 shadow rounded" id="model3dFile"
                 onChange={onFileChange} 
                 />
               <FormInput

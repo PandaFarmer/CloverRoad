@@ -1,17 +1,20 @@
 package model3ds
 
 import (
-	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/models"
 	"github.com/gofiber/fiber/v2"
+	"time"
 )
 
 type UpdateModel3DRequestBody struct {
-	Title                string  `json:"title"`
-	Author               string  `json:"author"`
-	Description          string  `json:"description"`
-	Price                float64 `json:"price"`
-	SerializedFile3D     []byte  `json:"serialized_file_3d"`
-	FileNameAndExtension string  `json:"file_name_and_extension"`
+	Title                       string  `json:"title"`
+	Author                      string  `json:"author"`
+	Description                 string  `json:"description"`
+	Price                       float64 `json:"price"`
+	SerializedPreviewFile       []byte  `json:"serialized_preview_file"`
+	PreviewFileNameAndExtension string  `json:"preview_file_name_and_extension"`
+	SerializedFile3D            []byte  `json:"serialized_file_3d"`
+	FileNameAndExtension        string  `json:"file_name_and_extension"`
 }
 
 func (h handler) UpdateModel3D(c *fiber.Ctx) error {
@@ -33,8 +36,10 @@ func (h handler) UpdateModel3D(c *fiber.Ctx) error {
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
+	model3d.PreviewFileNameAndExtension = body.PreviewFileNameAndExtension
 	model3d.SerializedFile3D = body.SerializedFile3D
 	model3d.FileNameAndExtension = body.FileNameAndExtension
+	model3d.UpdatedAt = time.Now()
 
 	// save model3d
 	h.DB.Save(&model3d)

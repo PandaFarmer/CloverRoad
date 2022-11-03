@@ -25,59 +25,38 @@ class FiberClient {
     //delete this.apiClient.defaults.headers['Authorization'];
     
     // HACK: This is a hack for scenario where there is no login form
-    const form_data = new FormData();
-    const grant_type = 'password';
-    const item = {grant_type, email, password};
-    for (const key in item) {
-      form_data.append(key, item[key]);
-    }
-    console.log("sugma");
-    // return this.apiClient
-    //     .post('/auth/login', form_data)
-    //     .then((resp) => {
-    //       localStorage.setItem('token', JSON.stringify(resp.data));
-    //       return this.fetchUser();
-    //     });
+    // const form_data = new FormData();
+    // const grant_type = 'password';
+    // const item = {grant_type, email, password};
+    // for (const key in item) {
+    //   form_data.append(key, item[key]);
+    // }
+    console.log("attempting to send request along proper route");
     return this.apiClient
-    .post('http://localhost:8000/auth/login', {
+    .post("auth/login",{
+      // headers: {
+      //   'Access-Control-Allow-Origin': true,
+      // },
         email: email,
         password: password,
       })
     .then((resp) => {
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('email', email);
+      console.log("fetching user................")
       return this.fetchUser();
     });
 
   }
 
-  fetchUser() {
-    // const formData = new FormData();
-    // formData.append('email', localStorage.getItem('email'));
-    const config = {
-      params:{email: localStorage.getItem('email')},
-      headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }
-    };
+  register(email, username, fullname, password) {
 
-    console.log(JSON.stringify(config))
-    console.log(JSON.stringify(localStorage.getItem('data')))
-    return this.apiClient.get('http://localhost:8000/users', config
-    ).then(({data}) => {
-      console.log("user: " + JSON.stringify(data[0]));
-      localStorage.setItem('user', data[0].user_name);
-      return data;
-    });
-  }
-
-  register(email, password, fullName) {
-    const registerData = {
-      email,
-      password,
-      full_name: fullName,
-      is_active: true,
-    };
-
-    return this.apiClient.post('/auth/signup', registerData).then(
+    return this.apiClient.post('/auth/signup', {
+      email : email,
+      username : username,
+      fullname : fullname,
+      password : password
+    }).then(
         (resp) => {
           return resp.data;
         });
@@ -108,8 +87,26 @@ class FiberClient {
     return this.apiClient.get(`/model3ds/${model3dId}`);
   }
 
-  getModel3Ds(keyword) {
-    return this.apiClient.get(`/model3ds/search/?keyword=${keyword}&max_results=10`).then(({data}) => {
+  getModel3Ds(keywords, max_results, lastUpdated, minPrice, maxPrice) {
+    console.log(lastUpdated.toString());
+    const data = new FormData();
+    data.append("keywords", keywords);
+    data.append("max_results", max_results);
+    data.append("lastUpdated", lastUpdated);
+    data.append("minPrice", minPrice);
+    data.append("maxPrice", maxPrice);
+
+    const config = {
+      data,
+      headers: {Authorization:`Bearer ${localStorage.getItem('token')}` , 
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Content-Type': 'multipart/form-data'
+        'Content-Type':'application/json'
+      }
+    }
+
+    console.log(config);
+    return this.apiClient.get(`/model3ds/search`, config).then(({data}) => {
       return data;
     });
   }
@@ -126,7 +123,7 @@ class FiberClient {
     });
   }
 
-  createModel3D(title, author, description, price, blobData, fileName) {
+  createModel3D(title, author, description, price, previewBlobData, blobData, fileName) {
     // console.log("author: "+author)
     // console.log("file_name: " + file_name)
     console.log("user in localStorage: " + localStorage.getItem('user'));
@@ -135,22 +132,43 @@ class FiberClient {
     data.append("author", localStorage.getItem('user'));
     data.append("description", description);
     data.append("price", Math.floor(price * 100) / 100);
+    // data.append("serialized_preview_file", previewBlobData)
     data.append("serialized_file_3d", blobData);
     data.append("file_name_and_extension", fileName);
-    // const model3dData = {
-    //   Title : title,
-    //   Author : localStorage.getItem('user'), 
-    //   Description : description, 
-    //   Price : Math.round(price * 100) / 100,
-    //   SerializedFile3D : blobData,
-    //   FileNameAndExtension : fileName,
-    //   // slocalStorage.getItem('user')bmitter_id: submitter_id,
-    // };
+
     const config = {
-      headers: {Authorization:`Bearer ${localStorage.getItem('token')}` }
-    }
-    return this.apiClient.post(`http://localhost:8000/model3ds`, data, config);
-    // return this.apiClient.post(`http://localhost:8000/model3ds`, model3dData, config);
+      headers: {Authorization:`Bearer ${localStorage.getItem('token')}` , 
+        // 'Access-Control-Allow-Origin': '*',                        
+        // 'Content-Type': 'multipart/form-data',
+        'Content-Type':'application/json'
+      },
+    };
+    return this.apiClient.post(`/model3ds`, data, config
+      ).catch(error => {
+        console.log('Error: ', error)
+      });
+  }
+
+  fetchUser() {
+    console.log("qasdf;lkjasdfl;kjaf;'-cd")
+    // const formData = new FormData();
+    // formData.append('email', localStorage.getItem('email'));
+    const config = {
+      params:{email: localStorage.getItem('email')},
+      headers: {//'Access-Control-Allow-Origin': true, 
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+      }
+    };
+    console.log("config: " + config)
+    console.log(JSON.stringify(config));
+    console.log(JSON.stringify(localStorage.getItem('data')));
+    console.log("baseurl: " + this.baseURL);
+    return this.apiClient.get('users', config
+    ).then(({data}) => {
+      console.log("user: " + JSON.stringify(data[0]));
+      localStorage.setItem('user', data[0].user_name);
+      return data;
+    });
   }
 
   deleteModel3D(model3dId) {

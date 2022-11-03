@@ -2,22 +2,24 @@ package model3ds
 
 import (
 	"fmt"
-
-	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/models"
 	"github.com/gofiber/fiber/v2"
+	"time"
 )
 
 type AddModel3DRequestBody struct {
-	Title                string  `form:"title"`
-	Author               string  `form:"author"`
-	Description          string  `form:"description"`
-	Price                float64 `form:"price"`
-	SerializedFile3D     []byte  `form:"serialized_file_3d"`
-	FileNameAndExtension string  `form:"file_name_and_extension"`
+	Title                       string  `json:"title"`
+	Author                      string  `json:"author"`
+	Description                 string  `json:"description"`
+	Price                       float64 `json:"price"`
+	SerializedPreviewFile       []byte  `json:"serialized_preview_file"`
+	PreviewFileNameAndExtension string  `json:"preview_file_name_and_extension"`
+	SerializedFile3D            []byte  `json:"serialized_file_3d"`
+	FileNameAndExtension        string  `json:"file_name_and_extension"`
 }
 
 func (h handler) AddModel3D(c *fiber.Ctx) error {
-	fmt.Println("herro adding model3d")
+	fmt.Println("Publishing 3D Model")
 	body := AddModel3DRequestBody{}
 
 	fmt.Println("something wrong with the received request body?")
@@ -46,8 +48,11 @@ func (h handler) AddModel3D(c *fiber.Ctx) error {
 	model3d.Author = body.Author
 	model3d.Description = body.Description
 	model3d.Price = body.Price
-	model3d.SerializedFile3D = body.SerializedFile3D         //sus
-	model3d.FileNameAndExtension = body.FileNameAndExtension //sus
+	model3d.SerializedPreviewFile = body.SerializedPreviewFile
+	model3d.SerializedFile3D = body.SerializedFile3D
+	model3d.FileNameAndExtension = body.FileNameAndExtension
+	model3d.CreatedAt = time.Now()
+	model3d.UpdatedAt = time.Now()
 
 	fmt.Println(model3d.Title)
 

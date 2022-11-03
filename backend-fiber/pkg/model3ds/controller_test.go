@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/PandaFarmer/CloverRoad/pkg/common/config"
-	"github.com/PandaFarmer/CloverRoad/pkg/common/db"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/config"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/db"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )

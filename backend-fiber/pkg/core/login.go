@@ -8,7 +8,7 @@ import (
 	//jwtware "github.com/gofiber/jwt/v3"
 	"github.com/golang-jwt/jwt/v4"
 
-	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/models"
 )
 
 type LoginRequestBody struct {
@@ -17,7 +17,7 @@ type LoginRequestBody struct {
 }
 
 func (h handler) Login(c *fiber.Ctx) error {
-
+	// c.Append("Access-Control-Allow-Origin", "http://localhost:3000/")
 	//body := LoginRequestBody{}
 	//email := body.Email
 	//pass := body.Password
@@ -95,5 +95,5 @@ func (h handler) Restricted(c *fiber.Ctx) error {
 	claims := user.Claims.(jwt.MapClaims)
 	name := claims["name"].(string)
 	return c.JSON(fiber.Map{"Welcome": name})
-	return c.SendString("Welcome " + name)
+	// return c.SendString("Welcome " + name)
 }

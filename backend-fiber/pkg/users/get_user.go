@@ -3,7 +3,7 @@ package users
 import (
 	"fmt"
 
-	"github.com/PandaFarmer/CloverRoad/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/common/models"
 	"github.com/gofiber/fiber/v2"
 )
 

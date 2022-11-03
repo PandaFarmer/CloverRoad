@@ -2,13 +2,12 @@ package core
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
-	"JWT-auth/internal/middleware"
-	"JWT-auth/internal/routes"
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 )
 
 type LoginRequestBody struct {

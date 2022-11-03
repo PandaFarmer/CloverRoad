@@ -3,8 +3,8 @@ package books
 import (
 	"net/http"
 
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/gin-gonic/gin"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/common/models"
 )
 
 func (h handler) GetBook(c *gin.Context) {

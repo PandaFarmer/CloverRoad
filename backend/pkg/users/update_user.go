@@ -3,9 +3,10 @@ package users
 import (
 	"net/http"
 
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/common/models"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/core"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/core"
 	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber"
 )
 
 type UpdateUserRequestBody struct {

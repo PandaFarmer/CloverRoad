@@ -1,11 +1,12 @@
 package main
 
 import (
+	"github.com/PandaFarmer/CloverRoad/backend/common/db"
 	"github.com/gin-gonic/gin"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/model3ds"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/users"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/common/db"
 	"github.com/spf13/viper"
+
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/model3ds"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/users"
 )
 
 func main() {
@@ -18,7 +19,8 @@ func main() {
 	r := gin.Default()
 	h := db.Init(dbUrl)
 
-	books.RegisterRoutes(r, h)
+	users.RegisterRoutes(r, h)
+	model3ds.RegisterRoutes(r, h)
 	// register more routes here
 
 	r.Run(port)

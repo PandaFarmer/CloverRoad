@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/common/models"
-	"github.com/PandaFarmer/CloverRoad/backend-gin/pkg/core"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/core"
 	"github.com/gin-gonic/gin"
 )
 

@@ -8,18 +8,21 @@ import (
 	"gorm.io/gorm"
 )
 
-func Init(url string) *gorm.DB {
+
+var GlobalDB *gorm.DB
+
+func Init(dbUrl string) (err error) {
 
 	dsn := "host=localhost user=postgres password=3t4t5LQS dbname=clover port=5432 sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	GlobalDB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	//db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
 
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	db.AutoMigrate(&models.Model3D{})
-	db.AutoMigrate(&models.User{})
+	GlobalDB.AutoMigrate(&models.Model3D{})
+	GlobalDB.AutoMigrate(&models.User{})
 
-	return db
+	return
 }

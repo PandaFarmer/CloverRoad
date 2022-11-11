@@ -150,7 +150,6 @@ class FiberClient {
   }
 
   fetchUser() {
-    console.log("qasdf;lkjasdfl;kjaf;'-cd")
     // const formData = new FormData();
     // formData.append('email', localStorage.getItem('email'));
     const config = {

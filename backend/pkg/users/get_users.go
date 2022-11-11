@@ -6,7 +6,6 @@ import (
 
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/gin-gonic/gin"
-	"github.com/gofiber/fiber"
 )
 
 func (h handler) GetUsers(c *gin.Context) {
@@ -18,5 +17,5 @@ func (h handler) GetUsers(c *gin.Context) {
 		return
 	}
 
-	return c.Status(fiber.StatusOK).JSON(&users)
+	c.Status(http.StatusOK)
 }

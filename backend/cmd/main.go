@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/PandaFarmer/CloverRoad/backend/common/db"
+	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/db"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 
@@ -17,7 +17,8 @@ func main() {
 	dbUrl := viper.Get("DB_URL").(string)
 
 	r := gin.Default()
-	h := db.Init(dbUrl)
+	db.Init(dbUrl)
+	h := db.GlobalDB
 
 	users.RegisterRoutes(r, h)
 	model3ds.RegisterRoutes(r, h)

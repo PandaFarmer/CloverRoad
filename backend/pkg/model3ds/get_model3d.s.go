@@ -1,4 +1,4 @@
-package books
+package model3ds
 
 import (
 	"net/http"
@@ -7,14 +7,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h handler) GetBooks(c *gin.Context) {
-	var books []models.Book
+func (h handler) GetModel3Ds(c *gin.Context) {
+	var model3ds []models.Model3D
 
-	if result := h.DB.Find(&books); result.Error != nil {
+	if result := h.DB.Find(&model3ds); result.Error != nil {
 		c.AbortWithError(http.StatusNotFound, result.Error)
 
 		return
 	}
 
-	c.JSON(http.StatusOK, &books)
+	c.JSON(http.StatusOK, &model3ds)
 }

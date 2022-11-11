@@ -629,12 +629,6 @@ reqHeaders:Content-Length=208340&Sec-Ch-Ua="Chromium";v="93", " Not;A Brand";v="
 queryParams:
 
 
-
-
-
-
-
-
 Todos:
 
 for reasonable MVP:
@@ -662,3 +656,25 @@ caching?
 testing kekw-but more logging, at least..?
 extension support for up to half of these:
 obj, fbx, max, c3d, ma/mb, blend, unitypackage, upk/uasset, dae, 3ds, skp, Lxo, lwo/lws, stl
+
+11/9/2022
+https://github.com/hellokvn/go-gin-api-medium
+https://betterprogramming.pub/hands-on-with-jwt-in-golang-8c986d1bb4c0
+
+circular dependencies- db.automigrate uses models type structs, but current impl of the user model utilizes db in a method
+solution-> use a mediator, just like the kevj guy does, with h handler (which holds a DB field for reference) as mediator, however there is an issue with passing in c *gin.Ctx if not passing method as a callback parameter.. that i haven't figured out..
+also will likely need to have some type conversion byte[] wtv before passing in params..? or at least milk a user object for its password field
+
+also will have to replace some user method references (called from login/signup fn endpoint defs) with auth fns (defined as handler methods?)
+
+also is it anti-idiomatic or just bad to call a endpoint fn without using http or gin to interface..?
+
+also need to check for model/struct assignment on crud endpoints
+todo: use docker, comprehensive testing (backend), 
+
+11/10/2022
+implemented, fixing compilation/syntax issues.. ++namechanges
+write tests for db, users/model3ds endpoints, auth endpoints, 
+
+https://stackoverflow.com/questions/36357791/gin-router-path-segment-conflicts-with-existing-wildcard
+

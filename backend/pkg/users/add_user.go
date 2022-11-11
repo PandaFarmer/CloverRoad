@@ -2,7 +2,7 @@ package users
 
 import (
 	"net/http"
-	"time"
+	// "time"
 
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/core"
@@ -29,14 +29,11 @@ func (h handler) AddUser(c *gin.Context) {
 
 	var user models.User
 
-	user.Id = body.Id
 	user.Email = body.Email
 	user.UserName = body.UserName
-	// user.FirstName = body.FirstName
-	// user.Surname = body.Surname
 	user.FullName = body.FullName
-	user.Password = core.HashAndSalt([]byte(body.Password))
-	user.DateJoined = time.Now()
+	user.Password, _ = core.HashAndSalt([]byte(body.Password))
+	// user.DateJoined = time.Now()//gorm.Model should handle this in type struct def
 	user.IsSuperUser = body.IsSuperUser
 
 	// insert new db entry

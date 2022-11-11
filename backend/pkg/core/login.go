@@ -1,99 +1,81 @@
+// controllers/public.go
 package core
 
 import (
-	"fmt"
+	"log"
 	"net/http"
-	"time"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 )
 
-type LoginRequestBody struct {
+// LoginPayload login body
+type LoginPayload struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
+// LoginResponse token response
+type LoginResponse struct {
+	Token string `json:"token"`
+}
+
+// Login logs users in
 func (h handler) Login(c *gin.Context) {
-	// c.Append("Access-Control-Allow-Origin", "http://localhost:3000/")
-	//body := LoginRequestBody{}
-	//email := body.Email
-	//pass := body.Password
-	loginRequestBody := new(LoginRequestBody)
-
-	if err := c.BodyParser(loginRequestBody); err != nil {
-		return err
-	}
-	fmt.Println(loginRequestBody.Email)
-	fmt.Println(loginRequestBody.Password)
-
-	email := loginRequestBody.Email
-	pass := loginRequestBody.Password
-
-	// email := c.FormValue("email")
-	// pass := c.FormValue("pass")
-
-	/*email := c.FormValue("email")
-	fmt.Println("email:%s", email)
-	pass := c.FormValue("pass")*/
-
-	/*
-		user := c.FormValue("user")
-		// Throws Unauthorized error
-		if user != "john" || pass != "doe" {
-			return c.SendStatus(fiber.StatusUnauthorized)
-		}
-	*/
-
-	///*
-	//email = c.Params("email")//or just user
-
+	var payload LoginPayload
 	var user models.User
-	if result := h.DB.First(&user, models.User{Email: email}); result.Error != nil {
-		c.AbortWithError(http.StatusNotFound, result.Error)
+
+	err := c.ShouldBindJSON(&payload)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"msg": "invalid json",
+		})
+		c.Abort()
 		return
 	}
 
-	if !ComparePasswords(user.Password, []byte(pass)) {
-		return c.SendStatus(fiber.StatusUnauthorized)
-	}
-	//*/
+	result := h.DB.Where("email = ?", payload.Email).First(&user)
 
-	// Create the Claims
-	/*claims := jwt.MapClaims{
-		"name":  "John Doe",
-		"admin": true,
-		"exp":   time.Now().Add(time.Hour * 72).Unix(),
-	}*/
-	claims := jwt.MapClaims{
-		"name":  user.UserName,
-		"admin": user.IsSuperUser,
-		"exp":   time.Now().Add(time.Hour * 72).Unix(),
+	if result.Error == gorm.ErrRecordNotFound {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"msg": "invalid user credentials",
+		})
+		c.Abort()
+		return
 	}
 
-	// Create token
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	if !ComparePasswords(user.Password, []byte(payload.Password)) {
+		log.Println(err)
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"msg": "invalid user credentials",
+		})
+		c.Abort()
+		return
+	}
 
-	fmt.Printf("user.UserName: %v/n", user.UserName)
-	fmt.Printf("Token: %v/n", token)
-	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte("secret"))
+	jwtWrapper := JwtWrapper{
+		SecretKey:       "verysecretkey",
+		Issuer:          "AuthService",
+		ExpirationHours: 24,
+	}
+
+	signedToken, err := jwtWrapper.GenerateToken(user.Email)
 	if err != nil {
-		return c.SendStatus(fiber.StatusInternalServerError)
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "error signing token",
+		})
+		c.Abort()
+		return
 	}
-	// fmt.Printf()
-	return c.JSON(fiber.Map{"token": t})
-}
 
-func (h handler) Accessible(c *gin.Context) {
-	return c.SendString("Accessible")
-}
+	tokenResponse := LoginResponse{
+		Token: signedToken,
+	}
 
-func (h handler) Restricted(c *gin.Context) {
-	user := c.Locals("user").(*jwt.Token)
-	claims := user.Claims.(jwt.MapClaims)
-	name := claims["name"].(string)
-	return c.JSON(fiber.Map{"Welcome": name})
-	// return c.SendString("Welcome " + name)
+	c.JSON(http.StatusBadRequest, tokenResponse)
+
+	return
 }

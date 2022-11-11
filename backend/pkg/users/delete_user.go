@@ -5,11 +5,10 @@ import (
 
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/gin-gonic/gin"
-	"github.com/gofiber/fiber"
 )
 
 func (h handler) DeleteUser(c *gin.Context) {
-	id := c.Params("id")
+	id := c.Param("id")
 
 	var user models.User
 
@@ -21,5 +20,5 @@ func (h handler) DeleteUser(c *gin.Context) {
 	// delete user from db
 	h.DB.Delete(&user)
 
-	return c.SendStatus(fiber.StatusOK)
+	c.Status(http.StatusOK)
 }

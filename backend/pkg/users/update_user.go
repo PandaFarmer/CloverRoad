@@ -6,7 +6,6 @@ import (
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/core"
 	"github.com/gin-gonic/gin"
-	"github.com/gofiber/fiber"
 )
 
 type UpdateUserRequestBody struct {
@@ -21,7 +20,7 @@ type UpdateUserRequestBody struct {
 }
 
 func (h handler) UpdateUser(c *gin.Context) {
-	id := c.Params("id")
+	id := c.Param("id")
 	body := UpdateUserRequestBody{}
 
 	// getting request's body
@@ -37,17 +36,14 @@ func (h handler) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	user.Id = body.Id
-	user.Email = body.Email
-	user.UserName = body.UserName
-	// user.FirstName = body.FirstName
-	// user.Surname = body.Surname
-	user.FullName = body.FullName
-	user.Password = core.HashAndSalt([]byte(body.Password))
-	user.IsSuperUser = body.IsSuperUser
+	// user.Email = body.Email
+	// user.UserName = body.UserName
+	// user.FullName = body.FullName
+	user.Password, _ = core.HashAndSalt([]byte(body.Password))
+	// user.IsSuperUser = body.IsSuperUser
 
 	// save user
 	h.DB.Save(&user)
 
-	return c.Status(fiber.StatusOK).JSON(&user)
+	c.Status(http.StatusOK)
 }

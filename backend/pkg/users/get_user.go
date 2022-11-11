@@ -6,12 +6,11 @@ import (
 
 	"github.com/PandaFarmer/CloverRoad/backend/pkg/common/models"
 	"github.com/gin-gonic/gin"
-	"github.com/gofiber/fiber"
 )
 
 func (h handler) GetUser(c *gin.Context) {
 	fmt.Println("getting user by id")
-	id := c.Params("id")
+	id := c.Param("id")
 
 	var user models.User
 
@@ -19,13 +18,13 @@ func (h handler) GetUser(c *gin.Context) {
 		c.AbortWithError(http.StatusNotFound, result.Error)
 		return
 	}
-
-	return c.Status(fiber.StatusOK).JSON(&user)
+	c.JSON(http.StatusOK, &user)
+	return
 }
 
 func (h handler) GetUserByEmail(c *gin.Context) {
 	fmt.Println("getting user by email")
-	email := c.Params("email")
+	email := c.Param("email")
 
 	var user models.User
 
@@ -34,5 +33,5 @@ func (h handler) GetUserByEmail(c *gin.Context) {
 		return
 	}
 
-	return c.Status(fiber.StatusOK).JSON(&user)
+	c.Status(http.StatusOK)
 }

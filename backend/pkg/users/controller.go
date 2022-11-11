@@ -16,11 +16,13 @@ func RegisterRoutes(r *gin.Engine, db *gorm.DB) {
 		DB: db,
 	}
 	fmt.Println("Initialized users endpoint...")
-	routes := app.Group("/users")
-	routes.Post("/", h.AddUser)
-	routes.Get("/", h.GetUsers)
-	routes.Get("/:id", h.GetUser)
-	routes.Get("/:email", h.GetUserByEmail)
-	routes.Put("/:id", h.UpdateUser)
-	routes.Delete("/:id", h.DeleteUser)
+	users_routes := r.Group("/users")
+	{
+		users_routes.POST("/", h.AddUser)
+		users_routes.GET("/", h.GetUsers)
+		users_routes.GET("/by-id/:id", h.GetUser)
+		users_routes.GET("/by-email/:email", h.GetUserByEmail)
+		users_routes.PUT("/:id", h.UpdateUser)
+		users_routes.DELETE("/:id", h.DeleteUser)
+	}
 }

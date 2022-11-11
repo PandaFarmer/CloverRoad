@@ -1,4 +1,4 @@
-package books
+package model3ds
 
 import (
 	"net/http"
@@ -7,15 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UpdateBookRequestBody struct {
+type UpdateModel3DRequestBody struct {
 	Title       string `json:"title"`
 	Author      string `json:"author"`
 	Description string `json:"description"`
 }
 
-func (h handler) UpdateBook(c *gin.Context) {
+func (h handler) UpdateModel3D(c *gin.Context) {
 	id := c.Param("id")
-	body := UpdateBookRequestBody{}
+	body := UpdateModel3DRequestBody{}
 
 	// getting request's body
 	if err := c.BindJSON(&body); err != nil {
@@ -23,18 +23,18 @@ func (h handler) UpdateBook(c *gin.Context) {
 		return
 	}
 
-	var book models.Book
+	var model3d models.Model3D
 
-	if result := h.DB.First(&book, id); result.Error != nil {
+	if result := h.DB.First(&model3d, id); result.Error != nil {
 		c.AbortWithError(http.StatusNotFound, result.Error)
 		return
 	}
 
-	book.Title = body.Title
-	book.Author = body.Author
-	book.Description = body.Description
+	model3d.Title = body.Title
+	model3d.Author = body.Author
+	model3d.Description = body.Description
 
-	h.DB.Save(&book)
+	h.DB.Save(&model3d)
 
-	c.JSON(http.StatusOK, &book)
+	c.JSON(http.StatusOK, &model3d)
 }

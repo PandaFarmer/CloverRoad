@@ -2,8 +2,11 @@ import config from './config';
 // import jwtDecode from 'jwt-decode';
 // import * as moment from 'moment';
 
-const axios = require('axios');
-
+const superagent = require('superagent');
+// import axios from 'axios';
+// import MockAdapter from 'axios-mock-adapter';
+// import * as axios from 'axios';
+// const axios = require('axios');
 
 class FiberClient {
   constructor(overrides) {

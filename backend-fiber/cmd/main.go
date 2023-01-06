@@ -13,8 +13,8 @@ import (
 	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/core"
 	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/model3ds"
 	"github.com/PandaFarmer/CloverRoad/backend-fiber/pkg/users"
-	// "github.com/gofiber/fiber/v2/middleware/csrf"
-	// jwtware "github.com/gofiber/jwt/v3"
+	"github.com/gofiber/fiber/v2/middleware/csrf"
+	jwtware "github.com/gofiber/jwt/v3"
 )
 
 // const jwtSecret = "asecret"
@@ -48,7 +48,7 @@ func main() {
 	// 	ServerHeader:  "Fiber",
 	// 	AppName: "CloverRoad v0.01",
 	// })
-	db := db.Init(c.DBUrl)
+	db, err := db.Init(c.DBUrl)
 
 	app.Use(requestid.New())
 
@@ -70,15 +70,14 @@ func main() {
 
 	core.RegisterRoutes(app, db)
 
-	// app.Use(csrf.New())
+	app.Use(csrf.New())
 
 	SecureEndpointInitialization := func() {
-		// shit := jwtware.New(jwtware.Config{
-		// 	SigningKey: []byte("secret"),
-		// 	// TokenLookup: "param:Authorization",
-		// })
-		// fmt.Println()
-		// app.Use(shit)
+		jwt_middleware := jwtware.New(jwtware.Config{
+			SigningKey: []byte("secret"),
+			// TokenLookup: "param:Authorization",
+		})
+		app.Use(jwt_middleware)
 
 		model3ds.RegisterRoutes(app, db)
 		// fmt.Println("About to register users endpoint")

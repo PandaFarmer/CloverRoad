@@ -55,7 +55,7 @@ func (h handler) Login(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusNotFound, result.Error.Error())
 	}
 
-	if !ComparePasswords(user.Password, []byte(pass)) {
+	if err := ComparePasswords(user.Password, pass); err != nil {
 		return c.SendStatus(fiber.StatusUnauthorized)
 	}
 	//*/

@@ -3,6 +3,7 @@ package model3ds
 import (
 	"log"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 
@@ -41,6 +42,7 @@ func TestRegisterRoutes(t *testing.T) {
 		},
 	}
 
+	os.Chdir("../../")
 	c, err := config.LoadConfig()
 	// Define Fiber app.
 	if err != nil {
@@ -48,8 +50,10 @@ func TestRegisterRoutes(t *testing.T) {
 	}
 
 	app := fiber.New()
-	db := db.Init(c.DBUrl)
-
+	db, err := db.Init(c.DBUrl)
+	if err != nil {
+		log.Fatalln("Failed at db.Init", err)
+	}
 	RegisterRoutes(app, db)
 
 	for _, tt := range tests {

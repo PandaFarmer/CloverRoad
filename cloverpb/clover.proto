@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package clover;
+option go_package = "cloverpb";
+
+message AddModel3DRequestBody {
+    string Title = "title";
+    string Author = "author";
+	string Description = "description";
+}
+message UpdateModel3DRequestBody {
+	string Title = "title";
+	string Author = "author";
+	string Description  = "description";
+}
+message AddUserRequestBody {
+	int Id = "primaryKey";
+	string Email = "email";
+	string UserName = "user_name";
+	string FullName = "full_name";
+	string Password = "password";
+	bool   IsSuperUser = "is_super_user";
+}
+message UpdateUserRequestBody {
+    int Id =   "primaryKey";
+	string Email = "email";
+	string UserName = "user_name";
+	string FullName = "full_name";
+	string Password = "password";
+	bool IsSuperUser =   "is_super_user";
+}
+
+// message cloverRequest {
+//     string name = 1;
+// }
+
+// message cloverResponse {
+//     string greeting = 1;
+// }
+
+service cloverService {
+    rpc Clover(cloverRequest) returns (cloverResponse) {};
+}
+/*
+type AddModel3DRequestBody struct {
+	Title       string `json:"title"`
+	Author      string `json:"author"`
+	Description string `json:"description"`
+}
+type UpdateModel3DRequestBody struct {
+	Title       string `json:"title"`
+	Author      string `json:"author"`
+	Description string `json:"description"`
+}
+type AddUserRequestBody struct {
+	Id          int    `json:"id" gorm:"primaryKey"`
+	Email       string `json:"email"`
+	UserName    string `json:"user_name"`
+	FullName    string `json:"full_name"`
+	Password    string `json:"password"`
+	IsSuperUser bool   `json:"is_super_user"`
+}
+type UpdateUserRequestBody struct {
+	Id       int    `json:"id" gorm:"primaryKey"`
+	Email    string `json:"email"`
+	UserName string `json:"user_name"`
+	FullName    string `json:"full_name"`
+	Password    string `json:"password"`
+	IsSuperUser bool   `json:"is_super_user"`
+}
+*/

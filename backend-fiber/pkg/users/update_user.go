@@ -38,7 +38,7 @@ func (h handler) UpdateUser(c *fiber.Ctx) error {
 	// user.FirstName = body.FirstName
 	// user.Surname = body.Surname
 	user.FullName = body.FullName
-	user.Password = core.HashAndSalt([]byte(body.Password))
+	user.Password, _ = core.HashAndSalt(body.Password)
 	user.IsSuperUser = body.IsSuperUser
 
 	// save user

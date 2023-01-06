@@ -678,3 +678,117 @@ write tests for db, users/model3ds endpoints, auth endpoints,
 
 https://stackoverflow.com/questions/36357791/gin-router-path-segment-conflicts-with-existing-wildcard
 
+11/11/2022
+https://github.com/golang-jwt/jwt
+
+11/14/2022
+https://docs.docker.com/get-started/02_our_app/
+but we are using fiber+golang not nodejs..
+https://medium.com/jaysonmulwa/deploying-a-go-fiber-go-react-app-to-heroku-using-docker-7379ed47e0fc
+for just backend:..
+https://golangdocs.com/golang-docker
+docker build -t fiber-go-server .
+
+fixed path in go.mod
+change change . to cmd/main.go in dockerfile -o server
+https://stackoverflow.com/questions/56643961/initialize-postgres-db-in-docker-compose
+updated go from 1.17 to 1.19
+	
+docker run -it --rm -p 5051:5050 fiber-go-server
+https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/
+docker run --name some-postgres -e POSTGRES_PASSWORD=3t4t5LQS -d postgres
+
+
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
+11/15/2022
+
+for config not looking in the right path:
+https://golangdocs.com/golang-os-package
+
+https://marketplace.visualstudio.com/items?itemName=dotup.dotup-vscode-test-generator
+go test ./...
+
+11/16/2022
+5598 1125 
+https://phoenixnap.com/kb/how-to-kill-a-process-in-linux
+added env file..
+
+why does the containerized app not connect to the postgres db? some setting in the yml/env file or cmdline options.. added .env file..
+
+docker run -i containername:dev --env-file .env
+
+docker run fiber-go-server
+
+https://stackoverflow.com/questions/59224272/connect-cannot-assign-requested-address
+
+dsn := "host=localhost user=postgres password=3t4t5LQS dbname=clover port=5432 sslmode=disable"
+
+11/20/2022
+https://forums.docker.com/t/accessing-host-machine-from-within-docker-container/14248/3
+https://stackoverflow.com/questions/44902919/how-to-access-application-url-hosted-in-docker-container
+
+
+2022/11/20 23:09:07 /app/pkg/common/db/db.go:14
+[error] failed to initialize database, got error failed to connect to `host=db user=postgres database=clover`: dial error (dial tcp 23.217.138.110:5432: connect: connection refused)
+2022/11/20 23:09:07 failed to connect to `host=db user=postgres database=clover`: dial error (dial tcp 23.217.138.110:5432: connect: connection refused)
+
+
+
+
+2022/11/20 23:10:08 failed to connect to `host=localhost user=postgres database=clover`: dial error (dial tcp [::1]:5432: connect: cannot assign requested address)
+
+2022/11/20 23:10:08 /app/pkg/common/db/db.go:14
+[error] failed to initialize database, got error failed to connect to `host=localhost user=postgres database=clover`: dial error (dial tcp [::1]:5432: connect: cannot assign requested address)
+
+11/25/2022
+https://databasefaqs.com/postgresql-installation-on-linux/
+https://golangdocs.com/golang-unit-testing
+https://golangdocs.com/type-assertions-in-golang
+https://gin-gonic.com/docs/examples/goroutines-inside-a-middleware/
+https://www.postgresql.org/docs/current/auth-pg-hba-conf.html
+https://stackoverflow.com/questions/39103412/how-to-properly-deal-with-env-files-in-docker
+https://pkg.go.dev/net/http#pkg-constants
+https://go.dev/blog/error-handling-and-go
+
+https://stackoverflow.com/questions/59224272/connect-cannot-assign-requested-address
+https://forums.docker.com/t/accessing-host-machine-from-within-docker-container/14248/7
+https://stackoverflow.com/questions/44902919/how-to-access-application-url-hosted-in-docker-container
+
+Postgres in docker container, hopefully app container can access port:
+https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/
+
+https://www.tutorialworks.com/container-networking/
+https://www.docker.com/blog/how-to-use-the-postgres-docker-official-image/
+https://docs.docker.com/compose/compose-file/build/
+https://phoenixnap.com/kb/how-to-ssh-into-docker-container
+
+tha real mvp:
+https://www.tutorialworks.com/container-networking/
+
+11/29/2022
+docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dockernet
+docker image list
+docker network ls
+docker inspect postgres-db | grep IPAddress
+docker pull postgres
+docker run --name postgres-db -e POSTGRES_PASSWORD=3t4t5LQS -d postgres
+which docker
+which docker compose
+
+to run the postgres image:
+sudo docker exec -it postgres-db /bin/bash
+
+to build the backend app in an image:
+docker build -t fiber-go-server .
+
+to run the backend app in container:
+docker run -it --rm -p 5051:5050 fiber-go-server
+
+to restart the postgres container:
+docker start postgres-db
+
+11/30/2022
+try replacing axios with superagent..
+going to try out using grpc..? - if superagent doesn't work
+if replacing axios with grpc-web doesn't work/proto craps, idk
